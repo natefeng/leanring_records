@@ -12,7 +12,7 @@ java则都交给了JVM虚拟机，但是如果不了解JVM 造成内存泄漏和
 
 java虚拟机在执行java过程中把它管理的内存分为若干个不同的数据区域 这些区域都有各种的用途，有的随着虚拟机进程的启动一直存在，有的则依赖用户进程的启动和结束
 
-![	](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20201205193713101.png)
+![image-20201205193713101.png](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20201205193713101.png)
 
 ### 程序计数器PC
 

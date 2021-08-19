@@ -2,7 +2,7 @@
 
 # ConcurrentHashMap源码
 
-ai![image-20210325164441884](C:\Users\fjh\Desktop\image-20210325164441884.png)
+ai![image-20210325164441884](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210325164441884.png)
 
 大致的节点构造。
 
@@ -802,7 +802,7 @@ private final Node<K,V>[] initTable() {
 
 ### transfer源码分解
 
-<img src="C:\Users\fjh\Desktop\image-20210330172647489.png" alt="image-20210330172647489" style="zoom:67%;" />
+<img src="https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210330172647489.png" alt="image-20210330172647489" style="zoom:67%;" />
 
 ```java
  /**
@@ -1997,7 +1997,7 @@ private void removeWaiter(WaitNode node) {
 
 ## 线程池工作原理
 
-![image-20210402111559002](C:\Users\fjh\Desktop\image-20210402111559002.png)
+![image-20210402111559002](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210402111559002.png)
 
 * workerCount, indicating the effective number of threads    工作数量，表示有效的线程数量
 
@@ -2007,7 +2007,7 @@ private void removeWaiter(WaitNode node) {
 
 ## 线程池状态
 
-![image-20210402113511304](C:\Users\fjh\Desktop\image-20210402113511304.png)
+![image-20210402113511304](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210402113511304.png)
 
  The runState provides the main lifecycle control, taking on values:
 
@@ -2415,7 +2415,7 @@ public ThreadPoolExecutor(int corePoolSize,
 
 ```
 
-<img src="C:\Users\fjh\Desktop\image-20210402232635364.png" alt="image-20210402232635364" style="zoom:50%;" />
+<img src="https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210402232635364.png" alt="image-20210402232635364" style="zoom:50%;" />
 
 ## 线程池提交任务源码解析
 
@@ -3046,13 +3046,13 @@ public ThreadPoolExecutor(int corePoolSize,
 
 ## 独占模式和AQS条件队列
 
-![image-20210409161034283](C:\Users\fjh\Desktop\image-20210409161034283.png)
+![image-20210409161034283](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210409161034283.png)
 
-![image-20210409161054258](C:\Users\fjh\Desktop\image-20210409161054258.png)
+![image-20210409161054258](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210409161054258.png)
 
 sync同步锁关键词管程模型大致原理
 
-![image-20210409161131624](C:\Users\fjh\Desktop\image-20210409161131624.png)
+![image-20210409161131624](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210409161131624.png)
 
 ## Node内部类源码解析
 
