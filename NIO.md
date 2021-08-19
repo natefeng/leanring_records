@@ -20,7 +20,7 @@ JVM自身在I/O方面效率欠佳。操作系统与JAVA基于流的I/O模式有�
 
 # 缓冲区操作
 
-![image-20210302210904839](./image-20210302210904839.png)
+![image-20210302210904839](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210302210904839.png)
 
 **简而言之，就是内核向磁盘控制硬件发出指令，要求磁盘读取数据，磁盘控制器将数据放入到内核缓冲区，这一步是通过DMA完成的，一旦内核缓冲区数据满后会将数据移动到进程缓冲区**
 
@@ -44,7 +44,7 @@ JVM自身在I/O方面效率欠佳。操作系统与JAVA基于流的I/O模式有�
 
 许多操作系统能把组装/分解过程进行的很高效，根据发散/汇聚的概念，进程只需要一个系统调用，就能把多个缓冲区地址传递给操作系统，然后操作系统以此填满多个缓冲区数据，再将数据发散的传给进程缓冲区，写的时候再汇聚起来
 
-![image-20210302213349049](./image-20210302213349049.png)
+![image-20210302213349049](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210302213349049.png)
 
 ## 虚拟内存
 
@@ -55,19 +55,19 @@ JVM自身在I/O方面效率欠佳。操作系统与JAVA基于流的I/O模式有�
 
 前面虽然说磁盘控制器无法直接向用户空间传输数据，但是如果将用户空间地址和用户虚拟空间地址映射为同一个物理地址，那么就可以实现
 
-![image-20210302215344906](./image-20210302215344906.png)
+![image-20210302215344906](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210302215344906.png)
 
 省去了内核与用户空间的来回拷贝
 
 内核和用户缓冲区必须使用相同的页对齐，缓冲区的大小还必须是磁盘控制器大小(通常为512字节磁盘扇区)的整数倍。
 
-![image-20210302215803195](./image-20210302215803195.png)
+![image-20210302215803195](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210302215803195.png)
 
 ### 内存页面调度
 
 为了支持虚拟内存的第二个特性(寻址空间大于物理内存)，就必须进行虚拟内存分页(经常称为交换)。从本质上来说，物理内存充当了分页的高速缓存；
 
-![image-20210303150132406](./image-20210303150132406.png)
+![image-20210303150132406](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210303150132406.png)
 
 把内存页大小设定为磁盘块大小的倍数，这样内核就可直接向磁盘控制硬件发布命令，把内存页写入磁盘，在需要的时候装入。
 
@@ -86,7 +86,7 @@ JVM自身在I/O方面效率欠佳。操作系统与JAVA基于流的I/O模式有�
 
 #### 内存映射文件
 
-![image-20210303161206489](./image-20210303161206489.png)
+![image-20210303161206489](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210303161206489.png)
 
 内存映射I/O使用文件系统建立从用户空间直到可用文件系统页的虚拟内存映射。好处：
 
@@ -110,7 +110,7 @@ JVM自身在I/O方面效率欠佳。操作系统与JAVA基于流的I/O模式有�
 
 缓冲区的工作与通道紧密联系。通道是I/O传输时发生的入口，而缓冲区则是数据传输的来源或者目标
 
-![image-20210309180353657](./image-20210309180353657.png)
+![image-20210309180353657](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210309180353657.png)
 
 ## 缓冲区基础
 
@@ -140,11 +140,11 @@ JVM自身在I/O方面效率欠佳。操作系统与JAVA基于流的I/O模式有�
 
 **0 <= mark <= position <= limit <= capacity**
 
-![image-20210309181030559](./image-20210309181030559.png)
+![image-20210309181030559](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210309181030559.png)
 
 ### 缓冲区API
 
-![image-20210309181048080](./image-20210309181048080.png)
+![image-20210309181048080](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210309181048080.png)
 
 返回的Buffer对象是因为便于级联属性的调用
 
@@ -158,7 +158,7 @@ buffer.reset( );
 
 buffer.mark().position(5).reset( );
 
-![image-20210309181137141](./image-20210309181137141.png)
+![image-20210309181137141](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210309181137141.png)
 
 isReadOnly()查看是否有缓冲区不可写，因为所有缓冲区都是可读的，但是并不是所有缓冲区都是可写的
 
@@ -187,7 +187,7 @@ isReadOnly()查看是否有缓冲区不可写，因为所有缓冲区都是可�
 buffer.put((byte)'H').put((byte)'e').put((byte)'l').put((byte)'l').put((byte)'o');
 ```
 
-![image-20210309201255505](./image-20210309201255505.png)
+![image-20210309201255505](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210309201255505.png)
 
 为什么需要强制转换呢？
 
@@ -225,7 +225,7 @@ buffer.limit(buffer.position()).position(0);
 
 Buffer.flip(); 
 
-![image-20210309204321694](./image-20210309204321694.png)
+![image-20210309204321694](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210309204321694.png)
 
 flip()翻转缓冲区，使其limit移动到写的最后一次前面，position置为0
 
@@ -248,7 +248,7 @@ for (int i = 0; i < count, i++) {
 
 这个例子更高效，但是第一个例子允许多线程并发
 
-![image-20210309230403951](./image-20210309230403951.png)
+![image-20210309230403951](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210309230403951.png)
 
 ```java
 //填充和释放缓冲区
@@ -320,13 +320,13 @@ public abstract class ByteBuffer
 
 为了实现该操作，必须使未读的数据下移，为此提供了一个compact()方法
 
-![image-20210310184035256](./image-20210310184035256.png)
+![image-20210310184035256](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210310184035256.png)
 
 使得未读的数据下移
 
 也就是让6C移动到0的位置，抛弃已读的位置，position指向limt-已读数据的位置
 
-![image-20210310184209274](./image-20210310184209274.png)
+![image-20210310184209274](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210310184209274.png)
 
 这里发生了几件事。您会看到数据元素 2-5 被复制到 0-3 位置。位置 4 和 5 不受影响，
 
@@ -338,7 +338,7 @@ mark()函数被调用之前是未定义的，reset()将位置设置为当前的�
 
 如果标记值未定义，那么调用reset()将导致异常
 
-![image-20210310202609357](./image-20210310202609357.png)
+![image-20210310202609357](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210310202609357.png)
 
 clear()清除标记
 
@@ -346,7 +346,7 @@ clear()清除标记
 buffer.position(2).mark().position(4);
 ```
 
-![image-20210310202731627](./image-20210310202731627.png)
+![image-20210310202731627](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210310202731627.png)
 
 如果调用reset()，那么position会回到mark标记
 
@@ -378,9 +378,9 @@ if (buffer1.equals (buffer2)) {
 - **在每个缓冲区中应被 Get()函数返回的剩余数据元素序列必须一致**
 - **两个对象类型相等，包含不同数据类型的buffer永远不会相等**
 
-![image-20210310205545723](./image-20210310205545723.png)
+![image-20210310205545723](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210310205545723.png)
 
-![image-20210310205549824](./image-20210310205549824.png)
+![image-20210310205549824](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210310205549824.png)
 
 缓冲区也支持用compareTo()函数以字典顺序进行比较。
 
@@ -503,7 +503,7 @@ public abstract class CharBuffer
 }
 ```
 
-![image-20210310214821480](./image-20210310214821480.png)
+![image-20210310214821480](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210310214821480.png)
 
 ```java
 CharBuffer buffer = CharBuffer.allocate (8); 
@@ -513,7 +513,7 @@ buffer.clear( );
 //
 ```
 
-![image-20210310215001620](./image-20210310215001620.png)
+![image-20210310215001620](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210310215001620.png)
 
 可以使用 asReadOnlyBuffer() 函数来生成一个只读的缓冲区视图。这与
 
@@ -624,7 +624,7 @@ public abstract ByteBuffer compact( );
 
 ### 字节顺序
 
-![image-20210310220651297](./image-20210310220651297.png)
+![image-20210310220651297](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210310220651297.png)
 
 例如，
 
@@ -632,11 +632,11 @@ public abstract ByteBuffer compact( );
 
 0x037fb4c7（十进制的 58,700,999）
 
-![image-20210310220718576](./image-20210310220718576.png)
+![image-20210310220718576](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210310220718576.png)
 
 分为大端和小端顺序
 
-![image-20210310220740673](./image-20210310220740673.png)
+![image-20210310220740673](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210310220740673.png)
 
 Intel处理器使用小端字节，Sun的Sparc工作站，摩托罗拉的CPU都属于大端字节顺序
 
@@ -704,9 +704,9 @@ public abstract class ByteBuffer
 }
 ```
 
-![image-20210310224337492](./image-20210310224337492.png)
+![image-20210310224337492](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210310224337492.png)
 
-![image-20210310224426957](./image-20210310224426957.png)
+![image-20210310224426957](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210310224426957.png)
 
 **直接缓冲区:内核地址空间和用户地址空间之间形成了一个物理内存映射文件，减少了之间的copy过程。**因为内核空间和用户空间都是逻辑上的空间，而物理空间则是实际存放的空间。而虚拟内存就是指很小的内存空间可以装很大的程序，采用了分页技术。可以使用内存映射来将内核空间和用户空间都映射到相同的物理空间，那么就不需要再进行copy数据
 
@@ -744,7 +744,7 @@ ByteBuffer.allocate (7).order (ByteOrder.BIG_ENDIAN);
 CharBuffer charBuffer = byteBuffer.asCharBuffer( );
 ```
 
-![image-20210310224942880](./image-20210310224942880.png)
+![image-20210310224942880](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210310224942880.png)
 
 因为java中char字符以unicode码表示，16位比特2个字节一位字符
 
@@ -838,9 +838,9 @@ public abstract class ByteBuffer
 
 成一个 int 类型的变量然后作为函数的返回值返回
 
-![image-20210310230534886](./image-20210310230534886.png)
+![image-20210310230534886](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210310230534886.png)
 
-![image-20210310230544786](./image-20210310230544786.png)
+![image-20210310230544786](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210310230544786.png)
 
 并且根据不同的顺序返回不同的字节顺序
 
@@ -950,7 +950,7 @@ Channel用于在字节缓冲区和位于通道的另一侧的实体(通常是一
 
 通道是一种途径,借助该途径可以用最小的总开销来访问操作系统本身的I/O服务
 
-![image-20210314161027100](./image-20210314161027100.png)
+![image-20210314161027100](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210314161027100.png)
 
 ## 通道基础
 
@@ -1142,7 +1142,7 @@ public void close( ) throws IOException;
 
 当前线程的 interrupt status 可以通过调用静态的 *Thread.interrupted( )*方法清除。		
 
-![image-20210314165154890](./image-20210314165154890.png)
+![image-20210314165154890](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210314165154890.png)
 
 ## Scatter/Gather
 
@@ -1190,9 +1190,9 @@ header.putShort (TYPE_FILE).putLong (body.limit()).flip( );
 long bytesWritten = channel.write (buffers);
 ```
 
-![image-20210314172647650](./image-20210314172647650.png)
+![image-20210314172647650](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210314172647650.png)
 
-![image-20210314172703899](./image-20210314172703899.png)
+![image-20210314172703899](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210314172703899.png)
 
 带 offset 和 length 参数版本的 *read( )* 和 *write( )*方法使得我们可以使用缓冲区阵列的子集缓冲区。这里的 offset 值指哪个缓冲区将开始被使用，而不是指数据的 offset。这里的 length 参数指示要使用的缓冲区数量。举个例子，假设我们有一个五元素的 fiveBuffers 阵列，它已经被初始化并引用了五个缓冲区，下面的代码将会写第二个、第三个和第四个缓冲区的内容：
 
@@ -1364,9 +1364,9 @@ FileChannel类保证在JAVA虚拟机上的所有实例对象看到的某个文�
 
 每个FileChannel对象都同一个文件描述符有一对一的关系。
 
-![image-20210314174057868](./image-20210314174057868.png)
+![image-20210314174057868](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210314174057868.png)
 
-![image-20210314174108918](./image-20210314174108918.png)
+![image-20210314174108918](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210314174108918.png)
 
 ```java
 让我们来进一步看下基本的文件访问方法（请记住这些方法都可以抛出 java.io.IOException 异
@@ -1467,7 +1467,7 @@ System.out.println ("file pos: " + randomAccessFile.getFilePointer( ));
 
 带有参数的read()和write()不会改变当前文件的position值，并且多个线程并发访问同一个文件而不会产生干扰。
 
-![image-20210314175750861](./image-20210314175750861.png)
+![image-20210314175750861](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210314175750861.png)
 
 truncate()方法会去掉size之外的所有数据，如果当前size大于新size，数据被丢弃
 
@@ -1489,13 +1489,13 @@ public abstract void force (boolean metaData) //参数为true时，同时将元�
 
 如果文件位于一个本地文件系统，那么一旦 *force( )*方法返回，即可保证从通道被创建（或上次调用 *force( )*）时起的对文件所做的全部修改已经被写入到磁盘。对于关键操作如事务（transaction）处理来说，这一点是非常重要的，可以保证数据完整性和可靠的恢复。
 
-![image-20210314180407729](./image-20210314180407729.png)
+![image-20210314180407729](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210314180407729.png)
 
 ### 文件锁定
 
 有关FileChannel实现的文件锁定模型语义：锁的对象是文件而不是通道或线程
 
-![image-20210314181216996](./image-20210314181216996.png)
+![image-20210314181216996](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210314181216996.png)
 
 操作系统判断是在进程级别的，而不是线程
 
@@ -2668,7 +2668,7 @@ implements WritableByteChannel, GatheringByteChannel
 }
 ```
 
-![image-20210314221730217](./image-20210314221730217.png)
+![image-20210314221730217](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210314221730217.png)
 
 可以将数据写入SinkChannel，然后使用SourceChannel输出数据来检查数据的正确性
 
@@ -2768,9 +2768,9 @@ buffer.flip( );
 
 ## 通道工具类
 
-![image-20210314222040819](./image-20210314222040819.png)
+![image-20210314222040819](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210314222040819.png)
 
-![image-20210314222047765](./image-20210314222047765.png)
+![image-20210314222047765](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210314222047765.png)
 
 # 选择器
 
@@ -2807,7 +2807,7 @@ public abstract Object blockingLock( );
 
 ```
 
-![image-20210315154642883](./image-20210315154642883.png)
+![image-20210315154642883](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210315154642883.png)
 
 每个通道就绪选择一个Selector都会对应一个唯一的SelectionKey，通过该key也可以获取对应的Selector和Channel。并且不能向选择器注册一个阻塞的通道，否则会出现异常。
 
@@ -2850,7 +2850,7 @@ public final Object attachment( )
 }
 ```
 
-![image-20210315154838115](./image-20210315154838115.png)
+![image-20210315154838115](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210315154838115.png)
 
 ### 建立选择器
 
@@ -2963,7 +2963,7 @@ attach可以绑定一个附件，并且在后面获取它，这是一种允许�
 
 attachment获取相应绑定的对象
 
-![image-20210315172125029](./image-20210315172125029.png)
+![image-20210315172125029](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210315172125029.png)
 
 ```java
 SelectionKey key =

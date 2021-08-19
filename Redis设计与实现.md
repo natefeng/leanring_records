@@ -890,7 +890,7 @@ TimeProc：时间处理函数，当时间事件到达的时候，会调用相应
 
 每次插入时间事件会插入到表头。
 
-![image-20210729150738871](/Users/sober.feng/Desktop/学习笔记/image-20210729150738871.png)
+![image-20210729150738871](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210729150738871.png)
 
 至于执行时机，redis服务器里面会一直循环判断时间是否达到，并且每一个时间事件都会添加到无序链表上，遍历链表的复杂度为ON
 
@@ -921,7 +921,7 @@ Redis服务器是一个事件驱动程序，服务器处理的事件氛围时间
 
 并且多个客户端结构通过链表连接起来
 
-![image-20210729151652892](/Users/sober.feng/Desktop/学习笔记/image-20210729151652892.png)
+![image-20210729151652892](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210729151652892.png)
 
 
 
@@ -937,19 +937,19 @@ Redis服务器是一个事件驱动程序，服务器处理的事件氛围时间
 
 客户端的状态的输入缓冲区用于保存客户端发送的命令请求
 
-![image-20210729152615364](/Users/sober.feng/Desktop/学习笔记/image-20210729152615364.png)
+![image-20210729152615364](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210729152615364.png)
 
 ### 命令与命令参数
 
 在服务器将客户端发送的命令请求保存到客户端状态的querybuf属性之后，服务器将对命令请求的内容进行解析，并且得出想要的命令参数以及命令的个数保存到客户端结构的属性里面
 
-![image-20210729153221378](/Users/sober.feng/Desktop/学习笔记/image-20210729153221378.png)
+![image-20210729153221378](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210729153221378.png)
 
 ### 命令的实现函数
 
 服务器从协议内容解析并且得出属性和参数后，根据参数第一个值，如果是set key value，那么会拿到该set值，去对应的命令表中查询对应的处理函数，其实就是一个字典，根据key，找到对应关于该命令的处理函数
 
-![image-20210729153512485](/Users/sober.feng/Desktop/学习笔记/image-20210729153512485.png)
+![image-20210729153512485](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210729153512485.png)
 
 然后调用该函数，将参数和内容传入，完成调用。
 
@@ -961,7 +961,7 @@ Redis服务器是一个事件驱动程序，服务器处理的事件氛围时间
 
 ### 创建普通客户端
 
-![image-20210802215558843](/Users/sober.feng/Desktop/学习笔记/image-20210802215558843.png)
+![image-20210802215558843](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210802215558843.png)
 
 用一个链表来维护所有的客户端
 
@@ -987,9 +987,9 @@ AOF文件的伪客户端和lua脚本的伪客户端。服务器自动关闭
 
 ## 服务器
 
-![image-20210802220649275](/Users/sober.feng/Desktop/学习笔记/image-20210802220649275.png)
+![image-20210802220649275](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210802220649275.png)
 
-![image-20210802220700387](/Users/sober.feng/Desktop/学习笔记/image-20210802220700387.png)
+![image-20210802220700387](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210802220700387.png)
 
 ### 读取命令请求
 
@@ -999,33 +999,33 @@ AOF文件的伪客户端和lua脚本的伪客户端。服务器自动关闭
 
 2. 对输入缓冲区中的命令进行分析，将参数提取保存到客户端的argv属性和argc属性。
 
-   ![image-20210802221022283](/Users/sober.feng/Desktop/学习笔记/image-20210802221022283.png)
+   ![image-20210802221022283](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210802221022283.png)
 
 然后分析程序对输入缓冲区中的协议进行分析：
 
-![image-20210802221103625](/Users/sober.feng/Desktop/学习笔记/image-20210802221103625.png)
+![image-20210802221103625](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210802221103625.png)
 
 根据客户端的argv[0]参数，在命令表查找参数对应的处理函数，然后进行解析。是一个redisCommand结构
 
-![image-20210802221214206](/Users/sober.feng/Desktop/学习笔记/image-20210802221214206.png)
+![image-20210802221214206](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210802221214206.png)
 
 sflags属性可以使用的标识值。
 
-![image-20210802221357760](/Users/sober.feng/Desktop/学习笔记/image-20210802221357760.png)
+![image-20210802221357760](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210802221357760.png)
 
 - set命令的名字为"set"，实现函数为setCommand；命令的参数个数为-3，表示接受三个或者以上数量的参数；命令的标识为“wm”，表示set是一个写入命令，并且在执行这个命令之前，服务器应该对占用内存状况进行检查，因为这个命令可能会占用大量内存。
 
-![image-20210802221541022](/Users/sober.feng/Desktop/学习笔记/image-20210802221541022.png)
+![image-20210802221541022](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210802221541022.png)
 
 将redisCommand赋值给redisClient的cmd属性，然后进行修改数值。
 
 然后调用函数，将参数传入进行执行就可以了。
 
-![image-20210802221842134](/Users/sober.feng/Desktop/学习笔记/image-20210802221842134.png)
+![image-20210802221842134](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210802221842134.png)
 
 执行完之后，会产生相应的命令回复。这些回复会保存在客户端状态的输出缓冲区里面。之后实现函数还会为客户度的套接字关联命令回复处理器，这个处理器负责将命令回复返回给客户端。
 
-![image-20210802222001375](/Users/sober.feng/Desktop/学习笔记/image-20210802222001375.png)
+![image-20210802222001375](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210802222001375.png)
 
 ### serverCron函数
 
@@ -1103,7 +1103,7 @@ initServerConfig函数的主要工作：
 
 4. 主服务器将记录在缓冲区里面所有的写命令发送给从服务器，从服务器执行这些写命令，更新为一致的状态
 
-   ![image-20210802224503202](/Users/sober.feng/Desktop/学习笔记/image-20210802224503202.png)
+   ![image-20210802224503202](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210802224503202.png)
 
 #### 命令传播
 
@@ -1120,7 +1120,7 @@ initServerConfig函数的主要工作：
 
 对于旧版断线后重新复制，哪怕是重新连接也需要进行初次复制的完整操作。
 
-![image-20210802225048240](/Users/sober.feng/Desktop/学习笔记/image-20210802225048240.png)
+![image-20210802225048240](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210802225048240.png)
 
 ### 新版复制功能的实现
 
@@ -1131,7 +1131,7 @@ PSYNC命令具有两种完整重同步和部分重同步两种模式：
 - 其中完整重同步用于初次复制情况，和SYNC命令的执行步骤基本一样
 - 部分重同步则用于断线后重新复制情况。
 
-![image-20210802225510424](/Users/sober.feng/Desktop/学习笔记/image-20210802225510424.png)
+![image-20210802225510424](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210802225510424.png)
 
 ### 部分重同步的实现
 
@@ -1148,9 +1148,9 @@ PSYNC命令具有两种完整重同步和部分重同步两种模式：
 - 主服务器每次向从服务器传播N个字节的数据的时候，就将自己的复制偏移量加上N
 - 从服务器每次收到主服务器传播来的N个字节的数据的时候，就将自己的复制偏移量加上N
 
-![image-20210802230159326](/Users/sober.feng/Desktop/学习笔记/image-20210802230159326.png)
+![image-20210802230159326](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210802230159326.png)
 
-![image-20210802230209158](/Users/sober.feng/Desktop/学习笔记/image-20210802230209158.png)
+![image-20210802230209158](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210802230209158.png)
 
 通过对比主从服务器的复制偏移量，程序可以很轻松的知道主从服务器是否处于一致的状态；
 
@@ -1163,9 +1163,9 @@ PSYNC命令具有两种完整重同步和部分重同步两种模式：
 
 当主服务器进行命令传播的时候，不仅会将写命令发送给所有的从服务器，还会将写命令写入到复制积压缓冲区里面。
 
-![image-20210802230636730](/Users/sober.feng/Desktop/学习笔记/image-20210802230636730.png)
+![image-20210802230636730](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210802230636730.png)
 
-![image-20210802230655803](/Users/sober.feng/Desktop/学习笔记/image-20210802230655803.png)
+![image-20210802230655803](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210802230655803.png)
 
 当从服务器重新连接上主服务器的时候，从服务器会通过PSYNC命令将自己的复制偏移量offset发送给主服务器，主服务器根据这个复制偏移量来决定对从服务器主席i功能何种同步操作。
 
@@ -1200,11 +1200,11 @@ PSYNC命令的调用方法有两种：
 - 如果主服务器返回+FUllRESYNC<runid><offset>回复，那么代表主服务器将会将这个ID保存起来，用于下一次部门重同步
 - 如果返回+CONTINUE回复，那么表示主服务器将与从服务器执行部分重同步操作，从服务器等待主服务器自己缺失的数据发送过来。
 
-![image-20210802232018654](/Users/sober.feng/Desktop/学习笔记/image-20210802232018654.png)
+![image-20210802232018654](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210802232018654.png)
 
 ### 复制的实现
 
-![image-20210802232110234](/Users/sober.feng/Desktop/学习笔记/image-20210802232110234.png)
+![image-20210802232110234](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210802232110234.png)
 
 #### 设置主服务器的地址和端口
 
@@ -1227,7 +1227,7 @@ PSYNC命令的调用方法有两种：
 
 Sentinel(哨岗、哨兵)是Redis的高可用性解决方案；由一个或者多个Sentinel实例组成的Sentinel系统；可以监视任意多个主服务器，并且在主服务器进入下线状态后，自动将主服务器下的某个从服务器升级为新的服务器。然后由新的主服务器继续处理命令请求。
 
-![image-20210803221945881](/Users/sober.feng/Desktop/学习笔记/image-20210803221945881.png)
+![image-20210803221945881](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210803221945881.png)
 
 当server1的下线时常超过用户设定的下线时长上线后，Sentinel系统就会对server1执行故障转移操作：
 
@@ -1235,7 +1235,7 @@ Sentinel(哨岗、哨兵)是Redis的高可用性解决方案；由一个或者�
 - 之后，Sentinel系统会向server1属下的所有从服务器发送新的复制指令，让它们成为新的主服务器的从服务器。
 - 另外Sentinel还会继续监视已下线的server1，并且在它重新上线以后，将它设置为新的主服务器的从服务器。
 
-![image-20210803222253319](/Users/sober.feng/Desktop/学习笔记/image-20210803222253319.png)
+![image-20210803222253319](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210803222253319.png)
 
 ### 启动并初始化Sentinel
 
@@ -1260,7 +1260,7 @@ redis-server /path/to/your/sentinel.conf --sentinel
 
 首先，因为Sentinel本质上只是一个运行在特殊状态下的Redis服务器，不过会有一些流程和普通的Redis服务器启动不同，比如载入rdb文件或者aof文件，Sentinel则不会载入。
 
-![image-20210803222749441](/Users/sober.feng/Desktop/学习笔记/image-20210803222749441.png)
+![image-20210803222749441](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210803222749441.png)
 
 多个Sentinel之间可以使用SlaveOF复制命令。
 
@@ -1277,21 +1277,21 @@ Sentinel状态中的master字典记录了所有被Sentinel监视的主服务器�
 
 每个实例结构代表一个被Sentinel监视的Redis服务器实例，这个实例可以是主服务器、从服务器、或者另外一个Sentinel。
 
-![image-20210803223537216](/Users/sober.feng/Desktop/学习笔记/image-20210803223537216.png)
+![image-20210803223537216](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210803223537216.png)
 
-![image-20210803223557006](/Users/sober.feng/Desktop/学习笔记/image-20210803223557006.png)
+![image-20210803223557006](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210803223557006.png)
 
 对Sentinel状态对初始化将引发对master字典的初始化，而master字典的初始化是根据被载入的Sentinel配置文件来进行的。
 
-![image-20210803223653028](/Users/sober.feng/Desktop/学习笔记/image-20210803223653028.png)
+![image-20210803223653028](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210803223653028.png)
 
-![image-20210803223724274](/Users/sober.feng/Desktop/学习笔记/image-20210803223724274.png)
+![image-20210803223724274](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210803223724274.png)
 
-![image-20210803223733153](/Users/sober.feng/Desktop/学习笔记/image-20210803223733153.png)
+![image-20210803223733153](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210803223733153.png)
 
 而SentinelState状态中的master字典如下
 
-![image-20210803223757271](/Users/sober.feng/Desktop/学习笔记/image-20210803223757271.png)
+![image-20210803223757271](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210803223757271.png)
 
 #### 创建连向主服务器的网络连接
 
@@ -1302,15 +1302,15 @@ Sentinel监视的主服务器会创建两个连向主服务器的异步网络连
 - 一个是命令连接，这个连接专门用于向主服务器发送命令，并接受命令回复
 - 另外一个是订阅连接，订阅主服务器的_sentinel_:hello频道
 
-![image-20210803224210846](/Users/sober.feng/Desktop/学习笔记/image-20210803224210846.png)
+![image-20210803224210846](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210803224210846.png)
 
 ### 获取主服务器信息
 
 Sentinel默认会以每十秒一次的频率，通过命令连接向被监视的主服务器发送INFO命令，并且通过INFO命令的回复来获取主服务器的当前信息。
 
-![image-20210803224358039](/Users/sober.feng/Desktop/学习笔记/image-20210803224358039.png)
+![image-20210803224358039](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210803224358039.png)
 
-![image-20210803224417773](/Users/sober.feng/Desktop/学习笔记/image-20210803224417773.png)
+![image-20210803224417773](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210803224417773.png)
 
 会得到如下信息
 
@@ -1322,7 +1322,7 @@ Sentinel默认会以每十秒一次的频率，通过命令连接向被监视的
 - 如果从服务器对应的实例结构已经存在，那么Sentinel对从服务器的实例结构进行更新
 - 如果对应的实例结构不存在，那么说明这个服务器是新发现的从服务器，Sentinel会进行创建并且初始化对应的从服务器实例结构。
 
-![image-20210803224834218](/Users/sober.feng/Desktop/学习笔记/image-20210803224834218.png)
+![image-20210803224834218](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210803224834218.png)
 
 主从服务器之间通过flags属性标记区分。
 
@@ -1330,11 +1330,11 @@ Sentinel默认会以每十秒一次的频率，通过命令连接向被监视的
 
 当Sentinel发现主服务器有新的服务器出现的时候，Sentinel除了会为这个新的从服务器创建相应的实例结构之外，还会创建连接到从服务器的命令连接和订阅连接。
 
-![image-20210803225052286](/Users/sober.feng/Desktop/学习笔记/image-20210803225052286.png)
+![image-20210803225052286](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210803225052286.png)
 
 也是每10秒一次的频率通过命令连接向从服务器发送INFO命令，并且获取类似于以下内容的回复。
 
-![image-20210803225138878](/Users/sober.feng/Desktop/学习笔记/image-20210803225138878.png)
+![image-20210803225138878](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210803225138878.png)
 
 根据INFO命令的回复，Sentinel会提取出以下信息：
 
@@ -1344,19 +1344,19 @@ Sentinel默认会以每十秒一次的频率，通过命令连接向被监视的
 - 从服务器的优先级
 - 从服务器的复制偏移量
 
-![image-20210803225255687](/Users/sober.feng/Desktop/学习笔记/image-20210803225255687.png)
+![image-20210803225255687](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210803225255687.png)
 
 ### 向主服务器和从服务器发送信息
 
 在默认情况下，Sentinel会以每两秒一次的频率，通过命令连接向所有被监视的主服务器和从服务器发送以下的格式
 
-![image-20210803225500033](/Users/sober.feng/Desktop/学习笔记/image-20210803225500033.png)
+![image-20210803225500033](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210803225500033.png)
 
-![image-20210803225540826](/Users/sober.feng/Desktop/学习笔记/image-20210803225540826.png)
+![image-20210803225540826](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210803225540826.png)
 
 每两秒一次发送自己sentinel的信息和正在监视的主服务器信息。
 
-![image-20210803225752172](/Users/sober.feng/Desktop/学习笔记/image-20210803225752172.png)
+![image-20210803225752172](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210803225752172.png)
 
 ### 接受来自主服务器和从服务器的频道信息
 
@@ -1370,15 +1370,15 @@ Sentinel对_sentinel_:hello频道的订阅会一直持续到Sentinel与服务器
 
 这也就是说，对于每个与Sentintel连接的服务器，Sentinel即通过命令连接向服务器的_sentinel_:hello频道发送信息，也订阅了该频道的信息。
 
-![image-20210803230225589](/Users/sober.feng/Desktop/学习笔记/image-20210803230225589.png)
+![image-20210803230225589](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210803230225589.png)
 
-![image-20210803230318561](/Users/sober.feng/Desktop/学习笔记/image-20210803230318561.png)
+![image-20210803230318561](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210803230318561.png)
 
 
 
 比如说有多台sentinel服务器，它们之间是这么进行通信的呢？如果多个sentinel服务器监听同一个主服务器，那么它们都会向该主服务器的_sentinel_hello:频道发送信息，也会订阅该频道的信息，发送的信息就是关于自己的ip和端口和被监听的主服务器的ip和端口，其他的sentinel接受到信息以后，可以用于判断是否当前有多个sentinel监听同一个主服务器，并且可以对相应主服务器的实例结构进行更新。
 
-![image-20210803230544161](/Users/sober.feng/Desktop/学习笔记/image-20210803230544161.png)
+![image-20210803230544161](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210803230544161.png)
 
 #### 更新sentinels字典
 
@@ -1397,13 +1397,13 @@ Sentinel为主服务器创建的实例结构中的sentinels字典保存了除Sen
 - 如果实例结构已经存在，进行更新
 - 否则进行创建
 
-![image-20210803231103425](/Users/sober.feng/Desktop/学习笔记/image-20210803231103425.png)
+![image-20210803231103425](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210803231103425.png)
 
 
 
 #### 创建连向其他Sentinel的命令连接
 
-![image-20210803231244663](/Users/sober.feng/Desktop/学习笔记/image-20210803231244663.png)
+![image-20210803231244663](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210803231244663.png)
 
 不仅会为新的Sentinel在自己的sentinels字典创建相应的实例结构，还会创建一个连向新sentinel的命令连接，而新的sentinel也同样会创建连向这个sentinel的命令连接，最终监视同一主服务器的多个Sentinel将形成互相连接的网络；
 
@@ -1411,13 +1411,13 @@ Sentinel为主服务器创建的实例结构中的sentinels字典保存了除Sen
 
 除了上面讲的每十秒一次的INFO命令和每2秒一次发送自己的sentinel信息和监视的主服务器信息，还会每秒一次的频率向所有与它创建了命令连接的实例发送PING命令，并且通过实例返回的PING命令回复来判断实例是否在线
 
-![image-20210803231711346](/Users/sober.feng/Desktop/学习笔记/image-20210803231711346.png)
+![image-20210803231711346](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210803231711346.png)
 
 会得到两种类型的回复
 
 可以自己在配置文件中配置Sentinel判断实例进入下线所需要需要的时间长度，如果在对应的时间内，一直向Sentinel返回无效回复，那么Sentinel会修改这个实例所对应的实例结构，改变其flags标识。
 
-![image-20210803231851552](/Users/sober.feng/Desktop/学习笔记/image-20210803231851552.png)
+![image-20210803231851552](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210803231851552.png)
 
 ### 检查客观下线状态
 
@@ -1429,7 +1429,7 @@ Sentinel发送该命令会附带判断主观下面的主服务器的ip和端口�
 
 Runid，可以是*或者Setnienl的运行ID
 
-![image-20210803232340269](/Users/sober.feng/Desktop/学习笔记/image-20210803232340269.png)
+![image-20210803232340269](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210803232340269.png)
 
 然后其他的sentinel接受到信息以后，会向源Setninel返回一条包含三个参数的回复
 
@@ -1437,17 +1437,17 @@ Runid，可以是*或者Setnienl的运行ID
 2. Leader_runid
 3. Leader_epoch
 
-![image-20210803232459903](/Users/sober.feng/Desktop/学习笔记/image-20210803232459903.png)
+![image-20210803232459903](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210803232459903.png)
 
 该环节就第一个参数有效，1代表主服务器已经下线，0服务器代表主服务器未下线。
 
-![image-20210803232541369](/Users/sober.feng/Desktop/学习笔记/image-20210803232541369.png)
+![image-20210803232541369](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210803232541369.png)
 
 #### 接受Sentinel is-master-down-by-addr命令的回复
 
-![image-20210803232621704](/Users/sober.feng/Desktop/学习笔记/image-20210803232621704.png)
+![image-20210803232621704](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210803232621704.png)
 
-![image-20210803232658955](/Users/sober.feng/Desktop/学习笔记/image-20210803232658955.png)
+![image-20210803232658955](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210803232658955.png)
 
 判断是否客观下线Sentinel的数量可以根据配置文件进行指定
 
@@ -1468,7 +1468,7 @@ Runid，可以是*或者Setnienl的运行ID
 - 因为领头Sentinel的产生需要半数以上Sentinel的支持，并且每个Sentinel配置纪元里面只能设置一次局部领头Sentinel，所以在一个配置纪元里面，只会出现一个领头Sentinel
 - 如果在给定时间内，没有一个Sentinel被选举为领头Sentinel，那么各个Sentinel将在一段时间之后再次进行选举
 
-![image-20210805214654603](/Users/sober.feng/Desktop/学习笔记/image-20210805214654603.png)
+![image-20210805214654603](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210805214654603.png)
 
 ### 故障转移
 
@@ -1482,21 +1482,21 @@ Runid，可以是*或者Setnienl的运行ID
 
 **选出复制偏移量最大的从服务器。**
 
-![image-20210805215753666](/Users/sober.feng/Desktop/学习笔记/image-20210805215753666.png)
+![image-20210805215753666](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210805215753666.png)
 
 #### 修改从服务器的复制目标
 
 然后让已下线主服务器属下的所有从服务器去复制新的主服务器，通过SLAVE OF命令来实现
 
-![image-20210805215906710](/Users/sober.feng/Desktop/学习笔记/image-20210805215906710.png)
+![image-20210805215906710](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210805215906710.png)
 
 
 
-![image-20210805215916372](/Users/sober.feng/Desktop/学习笔记/image-20210805215916372.png)
+![image-20210805215916372](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210805215916372.png)
 
 #### 将旧的主服务器变为从服务器
 
-![image-20210805215941029](/Users/sober.feng/Desktop/学习笔记/image-20210805215941029.png)
+![image-20210805215941029](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210805215941029.png)
 
 ## Cluster
 
@@ -1504,13 +1504,13 @@ Runid，可以是*或者Setnienl的运行ID
 
 一个Redis集群通常由多个节点组成，在刚开始的时候，每个节点都是独立的，通过CLUSTER MEET <ip> <port>将各个独立的节点连接起来，构成一个包含多个节点的集群
 
-![image-20210805221035796](/Users/sober.feng/Desktop/学习笔记/image-20210805221035796.png)
+![image-20210805221035796](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210805221035796.png)
 
 #### 启动节点
 
 Redis服务器在启动的时候会根据cluster-enabled配置选项是否为yes来决定是否开启服务器的集群模式。
 
-![image-20210805221137718](/Users/sober.feng/Desktop/学习笔记/image-20210805221137718.png)
+![image-20210805221137718](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210805221137718.png)
 
 集群节点和独立节点使用无区别，还是会用redisServer结构来保存服务器的状态，使用RedisClient结构来保存客户端的状态，至于那些在集群模式下用到的数据，redis都保存到了clusterNode结构、clusterLink结构以及clusterState结构中
 
@@ -1518,17 +1518,17 @@ Redis服务器在启动的时候会根据cluster-enabled配置选项是否为yes
 
 clusterNode结构保存了一个节点的当前状态，比如节点的创建时间，节点的名字，节点当前的配置纪元，节点的IP、PORT等等信息
 
-![image-20210805221501758](/Users/sober.feng/Desktop/学习笔记/image-20210805221501758.png)
+![image-20210805221501758](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210805221501758.png)
 
 clusterNode结构的link属性是一个clusterLink结构，该结构保存了连接节点所需要的有关信息，比如套接字描述符，输入和输出缓冲区
 
-![image-20210805221546511](/Users/sober.feng/Desktop/学习笔记/image-20210805221546511.png)
+![image-20210805221546511](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210805221546511.png)
 
 最后，每个节点都保存着一个clusterState结构，这个结构记录了在当前节点的视角下，集群目前所处的状态，例如集群是上线还是下线，集群包含多少节点，集群当前的配置纪元等等
 
-![image-20210805221659844](/Users/sober.feng/Desktop/学习笔记/image-20210805221659844.png)
+![image-20210805221659844](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210805221659844.png)
 
-![image-20210805221839328](/Users/sober.feng/Desktop/学习笔记/image-20210805221839328.png)
+![image-20210805221839328](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210805221839328.png)
 
 	#### CLUSTER MEET命令的实现
 
@@ -1541,7 +1541,7 @@ clusterNode结构的link属性是一个clusterLink结构，该结构保存了连
 5. 之后，节点A向节点B发送一条PING消息
 6. 节点B接受到节点A的ping消息后，代表节点A收到了自己的PONG消息，握手完成。
 
-![image-20210805222328785](/Users/sober.feng/Desktop/学习笔记/image-20210805222328785.png)
+![image-20210805222328785](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210805222328785.png)
 
 ### 槽指派
 
@@ -1549,29 +1549,29 @@ Redis集群通过分片的方式来保存数据库中的键值对，整个数据
 
 需要为每个槽都分配节点
 
-![image-20210805222832474](/Users/sober.feng/Desktop/学习笔记/image-20210805222832474.png)
+![image-20210805222832474](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210805222832474.png)
 
 当以上三个CLUSTER ADDSLOTS命令都执行完毕以后，数据库的16384个槽已经被指派给了相应的节点，集群进入了上线状态
 
-![image-20210805222930175](/Users/sober.feng/Desktop/学习笔记/image-20210805222930175.png)
+![image-20210805222930175](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210805222930175.png)
 
 #### 记录节点的槽指派信息
 
 clusterNode结构的slots属性和numslot属性记录了节点负责处理哪些槽
 
-![image-20210805223028166](/Users/sober.feng/Desktop/学习笔记/image-20210805223028166.png)
+![image-20210805223028166](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210805223028166.png)
 
 二进制位的数组，如果slots数组上的索引i的二进制位的值为1，那么代表节点负责处理槽i
 
 如果为0，那么表示节点不负责处理槽i
 
-![image-20210805223145506](/Users/sober.feng/Desktop/学习笔记/image-20210805223145506.png)
+![image-20210805223145506](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210805223145506.png)
 
 numslots属性则记录节点负责处理的槽点数量
 
 #### 传播节点的槽指派信息
 
-![image-20210805223253809](/Users/sober.feng/Desktop/学习笔记/image-20210805223253809.png)
+![image-20210805223253809](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210805223253809.png)
 
 会互相发送信息，会互相告诉自己处理的是哪些槽
 
@@ -1581,25 +1581,25 @@ numslots属性则记录节点负责处理的槽点数量
 
 clusterState结构中的slots数组记录了集群中所有16384个槽点指派信息
 
-![image-20210805223751226](/Users/sober.feng/Desktop/学习笔记/image-20210805223751226.png)
+![image-20210805223751226](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210805223751226.png)
 
-![image-20210805223811764](/Users/sober.feng/Desktop/学习笔记/image-20210805223811764.png)
+![image-20210805223811764](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210805223811764.png)
 
-![image-20210805223833847](/Users/sober.feng/Desktop/学习笔记/image-20210805223833847.png)
+![image-20210805223833847](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210805223833847.png)
 
 比如说首先根据key算出对应的槽，然后直接clusetState中的slots数组直接找到对应的处理节点，如果不是自己，则转换为其他的节点
 
 #### CLUSTER ADDSLOTS命令的实现
 
-![image-20210805224443950](/Users/sober.feng/Desktop/学习笔记/image-20210805224443950.png)
+![image-20210805224443950](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210805224443950.png)
 
-![image-20210805224529209](/Users/sober.feng/Desktop/学习笔记/image-20210805224529209.png)
+![image-20210805224529209](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210805224529209.png)
 
 ### 在集群中执行命令
 
 如果键所在的槽并没有指派给当前节点，那么节点会向客户端返回一个MOVED错误，并且返回对应需要访问的节点，然后客户端再次发送之前想要执行的命令
 
-![image-20210805224653620](/Users/sober.feng/Desktop/学习笔记/image-20210805224653620.png)
+![image-20210805224653620](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210805224653620.png)
 
 #### 计算键属于哪个槽
 
@@ -1608,13 +1608,13 @@ def slot_number(key) :
     return CRC16(key) & 16384
 ```
 
-![image-20210805224804026](/Users/sober.feng/Desktop/学习笔记/image-20210805224804026.png)
+![image-20210805224804026](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210805224804026.png)
 
 #### 判断槽是否由当前节点负责处理
 
 当节点计算出键所属于的槽i之后，节点就会检查自己在clusterState.slotes数组中的项i，判断键所在的槽是否由自己负责
 
-![image-20210805224923641](/Users/sober.feng/Desktop/学习笔记/image-20210805224923641.png)
+![image-20210805224923641](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210805224923641.png)
 
 #### MOVED错误
 
@@ -1624,7 +1624,7 @@ MOVED错误的格式为：
 
 MOVED <slot> <ip> : <port>
 
-![image-20210805225051825](/Users/sober.feng/Desktop/学习笔记/image-20210805225051825.png)
+![image-20210805225051825](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210805225051825.png)
 
 集群模式下的MOVED错误被隐藏了
 
@@ -1634,15 +1634,15 @@ MOVED <slot> <ip> : <port>
 
 键值队保存的方式和单机数据库完全相同，节点还会用clusterState结构中slots_to_keys跳跃表来保存槽和键之间的关系：
 
-![image-20210805225418836](/Users/sober.feng/Desktop/学习笔记/image-20210805225418836.png)
+![image-20210805225418836](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210805225418836.png)
 
-![image-20210805225517571](/Users/sober.feng/Desktop/学习笔记/image-20210805225517571.png)
+![image-20210805225517571](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210805225517571.png)
 
-![image-20210805225917214](/Users/sober.feng/Desktop/学习笔记/image-20210805225917214.png)
+![image-20210805225917214](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210805225917214.png)
 
 通过slots_to_keys跳跃表中记录各个数据库键所属于的槽，节点可以很方便的队属于某个或者某些槽的所有数据库键进行批量操作，比如CLUSTER GETKEYSINSLOT<slot> <count>命令可以返回最多count个属于槽slot的数据库键
 
-![image-20210805230055404](/Users/sober.feng/Desktop/学习笔记/image-20210805230055404.png)
+![image-20210805230055404](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210805230055404.png)
 
 ### 重新分片
 
@@ -1650,7 +1650,7 @@ Redis集群的重新分片操作可以将任意数量已经指派给某个节点
 
 Redis-trib则通过向源节点和目标节点发送命令来进行重新分片操作。
 
-![image-20210805230326133](/Users/sober.feng/Desktop/学习笔记/image-20210805230326133.png)
+![image-20210805230326133](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210805230326133.png)
 
 redis-trib向源节点发送CLUSTER GETKEYSINSLOT <slot> <count>命令，获取最多count个属于槽slot的键值队的键名
 
@@ -1658,7 +1658,7 @@ redis-trib向源节点发送CLUSTER GETKEYSINSLOT <slot> <count>命令，获取�
 
 重复上述步骤，直到所有的键都被迁移成功
 
-![image-20210805230558748](/Users/sober.feng/Desktop/学习笔记/image-20210805230558748.png)
+![image-20210805230558748](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210805230558748.png)
 
 ### ASK错误
 
@@ -1666,11 +1666,11 @@ redis-trib向源节点发送CLUSTER GETKEYSINSLOT <slot> <count>命令，获取�
 
 #### CLUSTER SETSLOT IMPORTING命令的实现
 
-![image-20210805231035389](/Users/sober.feng/Desktop/学习笔记/image-20210805231035389.png)
+![image-20210805231035389](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210805231035389.png)
 
 clusterState里面的importing_slots_from数组记录了当前节点正在从其他节点导入的槽
 
-![image-20210805231113771](/Users/sober.feng/Desktop/学习笔记/image-20210805231113771.png)
+![image-20210805231113771](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210805231113771.png)
 
 通过发送该命令可以让制定的某个槽，从制定的source_id上面的节点迁移到自己身上来
 
@@ -1678,13 +1678,13 @@ clusterState里面的importing_slots_from数组记录了当前节点正在从其
 
 cluseterState结构migrating_slots_to数组记录了当前节点正在迁移到其他节点的槽
 
-![image-20210805231311268](/Users/sober.feng/Desktop/学习笔记/image-20210805231311268.png)
+![image-20210805231311268](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210805231311268.png)
 
-![image-20210805231335411](/Users/sober.feng/Desktop/学习笔记/image-20210805231335411.png)
+![image-20210805231335411](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210805231335411.png)
 
 #### ASKING命令
 
-![image-20210805231441156](/Users/sober.feng/Desktop/学习笔记/image-20210805231441156.png)
+![image-20210805231441156](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210805231441156.png)
 
 打开发送该命令的客户端的REDIS_ASKING标识
 
@@ -1695,17 +1695,17 @@ cluseterState结构migrating_slots_to数组记录了当前节点正在迁移到�
 
 ### 复制与故障转移
 
-![image-20210808162607089](/Users/sober.feng/Desktop/学习笔记/image-20210808162607089.png)
+![image-20210808162607089](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210808162607089.png)
 
 上述的集群状态如果当7000节点宕机以后，会根据相应的条件从7004和7005中选择一个主节点，然后将7000节点设置为下线的状态，如下图：
 
-![image-20210808162730814](/Users/sober.feng/Desktop/学习笔记/image-20210808162730814.png)
+![image-20210808162730814](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210808162730814.png)
 
 当7000节点重新上线的时候会设置为7004的从节点
 
-![image-20210808162802767](/Users/sober.feng/Desktop/学习笔记/image-20210808162802767.png)
+![image-20210808162802767](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210808162802767.png)
 
-![image-20210808162815281](/Users/sober.feng/Desktop/学习笔记/image-20210808162815281.png)
+![image-20210808162815281](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210808162815281.png)
 
 #### 设置从节点
 
@@ -1717,22 +1717,22 @@ CLUSTER REPLICATE <node_id>
 
 - 接受到命令的节点首先会在自己的clusterState.nodes字典找到对应node_id所对应节点的clusterNode结构，并且将自己clusterNode.mysql.slaveOf指针指向该节点，以此来记录这个节点正在复制的主节点
 
-  ![image-20210808163423501](/Users/sober.feng/Desktop/学习笔记/image-20210808163423501.png)
+  ![image-20210808163423501](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210808163423501.png)
 
 
 
 - 然后节点会修改自己在clusterState.myself.flags中的属性，关闭原来的master标识，打开slave标识，表示这个节点已经由原来的主节点变成了从节点
 - 最后，节点调用复制代码，并且根据clusterState.myself.slaveOf所对应的主节点的ip和端口进行创建套接字发送主从复制指令。
 
-![image-20210808163715969](/Users/sober.feng/Desktop/学习笔记/image-20210808163715969.png)
+![image-20210808163715969](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210808163715969.png)
 
 一个节点成为从节点，并且开始复制某个主节点的这一信息会通过消息发送给集群中的其他节点，最终集群中的所有节点都会知道该从节点正在复制某个主节点
 
 集群中的所有节点都会在代表主节点的clusterNode结构的slaves属性和numslaves属性中记录正在复制该主节点的从节点名单
 
-![image-20210808164022710](/Users/sober.feng/Desktop/学习笔记/image-20210808164022710.png)
+![image-20210808164022710](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210808164022710.png)
 
-![image-20210808164048417](/Users/sober.feng/Desktop/学习笔记/image-20210808164048417.png)
+![image-20210808164048417](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210808164048417.png)
 
 #### 故障检测
 
@@ -1740,13 +1740,13 @@ CLUSTER REPLICATE <node_id>
 
 当一个主节点A通过消息得知主节点B认为主节点C已经进入了疑似下线状态的时候，主节点A会在自己的cluseterState.nodes中找到对应的主节点C的clusterNode结构，并且将主节点B的下线报告添加到主节点C对应的cluseterNode结构的fail_reports链表
 
-![image-20210808164658841](/Users/sober.feng/Desktop/学习笔记/image-20210808164658841.png)
+![image-20210808164658841](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210808164658841.png)
 
-![image-20210808164943250](/Users/sober.feng/Desktop/学习笔记/image-20210808164943250.png)
+![image-20210808164943250](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210808164943250.png)
 
 如果在一个集群中，半数以上负责处理槽节点的主节点都将某个主节点x报告为疑似下线，那么这个主节点x将被标记为已下线状态，将主节点x标记为已下线的节点会广播
 
-![image-20210808170009234](/Users/sober.feng/Desktop/学习笔记/image-20210808170009234.png)
+![image-20210808170009234](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210808170009234.png)
 
 #### 故障转移
 
@@ -1795,34 +1795,34 @@ CLUSTER REPLICATE <node_id>
 
 每个消息头都由一个cluster.h/clusterMsg结构表示
 
-![image-20210809102738879](/Users/sober.feng/Desktop/学习笔记/image-20210809102738879.png)
+![image-20210809102738879](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210809102738879.png)
 
-![image-20210809102800116](/Users/sober.feng/Desktop/学习笔记/image-20210809102800116.png)
+![image-20210809102800116](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210809102800116.png)
 
 ClusterMsg.data属性指向联合clusterMsgData,这个联合
 
 就是消息的正文
 
-![image-20210809103230329](/Users/sober.feng/Desktop/学习笔记/image-20210809103230329.png)	
+![image-20210809103230329](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210809103230329.png)	
 
 #### MEET、PING、PONG消息的实现
 
 Redis集群中的各个节点通过Gossip协议来交换各自关于不同节点的状态信息，其中Gossip协议由MEET、PING、PONG三种消息实现，这三种消息的正文都由两个clusterMsgDataGossip结构组成：
 
-![image-20210809103708178](/Users/sober.feng/Desktop/学习笔记/image-20210809103708178.png)
+![image-20210809103708178](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210809103708178.png)
 
 节点通过消息头都type属性来判断到底是哪种消息
 
 每次发送三种消息的时候，发送者都从已经都已知节点列表中随机选择出两个节点，并将这两个节点分别保存到clusterMsgDataGossip结构里面
 
-![image-20210809104040324](/Users/sober.feng/Desktop/学习笔记/image-20210809104040324.png)
+![image-20210809104040324](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210809104040324.png)
 
 当接受者收到MEET消息、PING、PONG消息的时候，接受者会访问消息正文的两个gossip接哦股，并且判断自己是否认识clusterMsgDataGossip结构记录的被选中节点来进行哪种操作。
 
 - 如果被选中节点存在接受者的已知列表里面，那么说明接受者是第一次接触到被选中节点，根据结构中的ip和port，与被选中节点进行握手
 - 如果被选中节点已经存在于接受者的已知列表中，那么说明已经接触过，接受到会对被选中节点对应的clusterNode结构进行更新
 
-![image-20210809104630108](/Users/sober.feng/Desktop/学习笔记/image-20210809104630108.png)
+![image-20210809104630108](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210809104630108.png)
 
 PING和PONG信息基本上都是用来更新自己对被选中的两个节点节点对应结构上的更新
 
@@ -1830,11 +1830,11 @@ PING和PONG信息基本上都是用来更新自己对被选中的两个节点节
 
 当集群里面的主节点A将主节点B标记为已经下线的时候，主节点A将向集群广播一条关于B的FAIL消息
 
-![image-20210809105035279](/Users/sober.feng/Desktop/学习笔记/image-20210809105035279.png)
+![image-20210809105035279](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210809105035279.png)
 
 该结构只记录了已下线节点的名字
 
-![image-20210809105401850](/Users/sober.feng/Desktop/学习笔记/image-20210809105401850.png)
+![image-20210809105401850](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210809105401850.png)
 
 #### PUBLISH消息的实现
 

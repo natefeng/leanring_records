@@ -12,7 +12,7 @@
 
 每当用户想要读数据的时候，其实是在读进程缓冲区而不是调用IO，有时候也会是调用IO，所以用户程序的IO读写程序，大多数情况下，并没有进行实际的IO操作，而是在读写自己的进程缓冲区
 
-![image-20210121160844501](D:\学习笔记\image-20210121160844501.png)
+![image-20210121160844501](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210121160844501.png)
 
 上图是典型的JAVA服务端处理网络请求的典型过程：
 
@@ -68,7 +68,7 @@ Linux内核通过网络IO,将内核的缓冲区中的数据写入网卡，网卡
 
 
 
-![image-20210121170346271](D:\学习笔记\image-20210121170346271.png)
+![image-20210121170346271](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210121170346271.png)
 
 举个例子，发起一个blocking socke的读系统调用，流程大概是这样的：
 
@@ -90,7 +90,7 @@ BIO的缺点：一般情况下，会为每个连接配套一个独立的线程�
 
 (2) 在内核缓冲区数据准备好的情况下，用户发起IO系统调用，内核会将内核缓冲区的数据拷贝到用户进程缓冲区，并且用户程序线程是阻塞的，拷贝结束后内系统调用返回成功，应用进程开始运行处理数据
 
-![image-20210121171538187](D:\学习笔记\image-20210121171538187.png)
+![image-20210121171538187](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210121171538187.png)
 
 NIO特点：应用程序线程需要不断的发起IO系统调用，轮询数据是否已经准备好，如果没有准备好，继续轮询，直到系统调用完成为止
 
@@ -112,7 +112,7 @@ IO多路复用模型，就是一种新的系统调用，一个进程监视多个
 
 首先不会发起IO系统调用，而是先发起select/epoll系统调用，IO多路复用基本原理就是select/epoll系统调用，单个线程不断轮询selct/epoll负责的成千上百条socket连接，一旦某个连接有数据到达了，就返回该连接
 
-![image-20210121174137642](D:\学习笔记\image-20210121174137642.png)
+![image-20210121174137642](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210121174137642.png)
 
 首先进行IO系统调用，但是这里有个前提，需要将目标网络连接提前注册到select/epoll的可可查询列表中。
 
@@ -132,7 +132,7 @@ IO多路复用模型，是建立在操作系统内核提供的多路分离系统
 
 ### 异步IO
 
-![image-20210121175115902](D:\学习笔记\image-20210121175115902.png)
+![image-20210121175115902](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210121175115902.png)
 
 (1) 当用户线程发起read系统调用，立刻可以去做其他的事情，用户线程不阻塞
 
@@ -154,7 +154,7 @@ IO多路复用模型，是建立在操作系统内核提供的多路分离系统
 
 我们也可以用信号，让内核在描述符就绪(也就是数据)就绪时发送一个信号通知我们，通过sigaction系统调用安装一个信号处理函数，该系统调用会立刻返回，主要来自信号处理函数的通知，那么就可以表示数据已准备好被处理，或者是数据已准备好被读取，
 
-![image-20210121182950396](D:\学习笔记\image-20210121182950396.png)
+![image-20210121182950396](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210121182950396.png)
 
 该过程数据拷贝期间用户程序也是阻塞的
 
@@ -174,7 +174,7 @@ IO多路复用模型，是建立在操作系统内核提供的多路分离系统
 
 开销大，如果多个请求要开启多个线程。
 
-![image-20210125165519884](D:\学习笔记\image-20210125165519884.png)
+![image-20210125165519884](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210125165519884.png)
 
 可以对传统的线程I/O模型进行改进
 
@@ -182,13 +182,13 @@ IO多路复用模型，是建立在操作系统内核提供的多路分离系统
 
 2) **基于线程池复用线程资源**：不用每次请求来的时候都创建线程，结束的时候销毁线程
 
-![image-20210125165729634](D:\学习笔记\image-20210125165729634.png)
+![image-20210125165729634](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210125165729634.png)
 
 所以就有了下面的Reactor模型
 
 ### Reactor模型
 
-![image-20210125165947992](D:\学习笔记\image-20210125165947992.png)
+![image-20210125165947992](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210125165947992.png)
 
 Reactor：Reactor在一个单独的线程中运行，负责监听和分发事件
 
@@ -213,13 +213,13 @@ Handlers：处理程序执行I/O事件要完成的实际操作
 
 4）Handler 会完成 Read→业务处理→Send 的完整业务流程。
 
-![image-20210125170320092](D:\学习笔记\image-20210125170320092.png)
+![image-20210125170320092](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210125170320092.png)
 
 #### 单Reactor 多线程
 
 Reactor线程负责监听和分发事件，如果是建立连接则去accept,如果是业务，则变为handler进行处理，但是只负责读取数据和发送数据，真正的业务处理丢到Workers线程池中
 
-![image-20210125170549723](D:\学习笔记\image-20210125170549723.png)
+![image-20210125170549723](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210125170549723.png)
 
 方案说明：
 
@@ -241,7 +241,7 @@ Reactor线程负责监听和分发事件，如果是建立连接则去accept,如
 
 #### 主从Reactor 多线程
 
-![image-20210125171240230](D:\学习笔记\image-20210125171240230.png)
+![image-20210125171240230](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210125171240230.png)
 
 针对单Reactor多线程模型中，Reactor在单线程中运行，高并发下容易出现瓶颈，所以可以让Reactor在多线程中运行
 
@@ -263,19 +263,19 @@ Reactor主线程轮询会将客户端来的请求进行分发，如果发现是�
 
 Reactor模型是非阻塞同步网络模型，而Proactor是非阻塞异步网络模型，但是编程复杂度高，需要操作系统支持，所有Linux还是采用的Reactor模型
 
-![image-20210125172701032](D:\学习笔记\image-20210125172701032.png)
+![image-20210125172701032](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210125172701032.png)
 
 ### Netty线程模型
 
 采用了Reactor主从线程模型
 
-![image-20210125173150194](D:\学习笔记\image-20210125173150194.png)
+![image-20210125173150194](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210125173150194.png)
 
 **特别说明的是，虽然Netty使用了Reactor线程模型，但是创建的两个NioEventLoopGroup都是线程池，bossGroup只是在Bind某个端口后，获得其中一个线程作为MainReactor，专门处理accept事件。而workerGroup会被各个SubReactor和Worker线程充分使用**
 
 ## Netty框架的架构设计
 
-![image-20210125174719738](D:\学习笔记\image-20210125174719738.png)
+![image-20210125174719738](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210125174719738.png)
 
 **Netty 功能特性如下：**
 
@@ -377,7 +377,7 @@ I/O 事件由 ChannelInboundHandler 或 ChannelOutboundHandler 处理，并通�
 
 在Netty中每个Channel都有仅有一个ChannelPipline与之对应
 
-![image-20210125200108483](D:\学习笔记\image-20210125200108483.png)
+![image-20210125200108483](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210125200108483.png)
 
 一个Channel包含了一个ChannelPipeline,而ChannelPipline里面又维护了一个由ChannelHandlerContext组成的双向链表，而每个ChannelHandlerContext又关联这一个ChannelHandler
 
@@ -461,7 +461,7 @@ publicstaticvoidmain(String[] args) {
   3）绑定端口，开始工作  
 ```
 
-![image-20210125201402507](D:\学习笔记\image-20210125201402507.png)
+![image-20210125201402507](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210125201402507.png)
 
 Server端包含1个Boss NioEventLoopGroup和1个Worker NioEventLoopGroup
 
@@ -489,27 +489,27 @@ NioEventLoopGroup里面包含多个事件循环NioEventLoop，而每个NioEventL
 
 早期的网络编程开发人员，需要去花费大量的时间学习复杂的C语言套接字库
 
-![](D:\学习笔记\image-20210316200950782.png)
+![](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210316200950782.png)
 
-![image-20210316201002613](D:\学习笔记\image-20210316201002613.png)
+![image-20210316201002613](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210316201002613.png)
 
 缺点就是都是为每一个客户端的连接创建一个新的线程。开销大，巨大上下文切换。
 
 ### JAVA NIO
 
-![image-20210316201120287](D:\学习笔记\image-20210316201120287.png)
+![image-20210316201120287](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210316201120287.png)
 
 new Input/OutPut
 
 ### 选择器
 
-![image-20210316201142220](D:\学习笔记\image-20210316201142220.png)
+![image-20210316201142220](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210316201142220.png)
 
 使用JAVA nio的selector。
 
 ### Netty简介
 
-![image-20210316201212638](D:\学习笔记\image-20210316201212638.png)
+![image-20210316201212638](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210316201212638.png)
 
 以上是特点。
 
@@ -524,7 +524,7 @@ new Input/OutPut
 
 可以视为传入(入站)或者传出(出战)数据的通道。类似于现实中的管子。因此它可以被打开或者连接或者断开连接
 
-![image-20210316201605465](D:\学习笔记\image-20210316201605465.png)
+![image-20210316201605465](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210316201605465.png)
 
 #### 回调
 
@@ -532,7 +532,7 @@ new Input/OutPut
 
 Netty在内部使用使用了回调来处理事件。当一个回调被触发的时候，相关的事件的ChannelHandle接口的实现处理，比如：当一个新的连接建立的时候，ChannelHandle的channelActive()回调方法将会被调用。
 
-![image-20210316202010695](D:\学习笔记\image-20210316202010695.png)
+![image-20210316202010695](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210316202010695.png)
 
 #### Future
 
@@ -542,9 +542,9 @@ JUC包里面的方法比较繁琐，并且还阻塞。所以Netty实现了自己
 
 监听器的回调方法operationComplete()，会将在对应的操作完成后调用。
 
-![image-20210316202239344](D:\学习笔记\image-20210316202239344.png)
+![image-20210316202239344](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210316202239344.png)
 
-![image-20210316202255527](D:\学习笔记\image-20210316202255527.png)
+![image-20210316202255527](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210316202255527.png)
 
 #### 事件和ChannelHandle
 
@@ -569,7 +569,7 @@ Netty事件基本是基于入站和出战数据流相关性进行分类的。
 - 打开或者关闭远程结点的连接
 - 将数据写入到套接字
 
-![image-20210316202646885](D:\学习笔记\image-20210316202646885.png)
+![image-20210316202646885](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210316202646885.png)
 
 每个事件都可以分发给ChannelHandle类中某个用户实现的方法。
 
@@ -711,7 +711,7 @@ public class EchoServer {
 
 ```
 
-![image-20210316212325716](D:\学习笔记\image-20210316212325716.png)
+![image-20210316212325716](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210316212325716.png)
 
 你创建了一个 ServerBootstrap 实例。因为你正在使用的是 NIO 传输，所以你指定了 NioEventLoopGroup 来接受和处理新的连接，并且将 Channel 的类型指定为 NioServerSocketChannel 。在此之后，你将本地地址设置为一个具有选定端口的 InetSocketAddress 。服务器将绑定到这个地址以监听新的连接请求。在 处，你使用了一个特殊的类——ChannelInitializer。这是关键。当一个新的连接被接受时，一个新的子 Channel 将会被创建，而 ChannelInitializer 将会把一个你的EchoServerHandler 的实例添加到该 Channel 的 ChannelPipeline 中。正如我们之前所解释的，这个 ChannelHandler 将会收到有关入站消息的通知。虽然 NIO 是可伸缩的，但是其适当的尤其是关于多线程处理的配置并不简单。
 
@@ -839,7 +839,7 @@ public class EchoClient {
 
 ```
 
-![image-20210316224728475](D:\学习笔记\image-20210316224728475.png)
+![image-20210316224728475](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210316224728475.png)
 
 第一个Netty程序。
 
@@ -867,7 +867,7 @@ EventLoop定义了接口的核心抽象，用于处理连接的生命周期中�
 
 高层次上说明了Channl,EventLoop,Thread以及EventLoopGroup之间的关系。
 
-![image-20210319205712660](D:\学习笔记\image-20210319205712660.png)
+![image-20210319205712660](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210319205712660.png)
 
 这些关系是
 
@@ -901,9 +901,9 @@ ChannelHandle安装到ChannelPipeline的过程如下：
 
 - ChannelInitializer将它自己从ChannelPipeLine移除。
 
-![image-20210319210643298](D:\学习笔记\image-20210319210643298.png)
+![image-20210319210643298](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210319210643298.png)
 
-![image-20210319210728834](D:\学习笔记\image-20210319210728834.png)
+![image-20210319210728834](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210319210728834.png)
 
 通过使用作为参数传递到每个方法的ChannelHandleContext，调用该参数的API可以使得事件被传递给当前ChannelPipeline的下一个链上的Channelhandle
 
@@ -911,7 +911,7 @@ ChannelHandle安装到ChannelPipeline的过程如下：
 
 Netty中有两种发送消息的方式，可以直接写到Channel上，该方式会导致消息从ChannelPipeline的尾端开始流动，第二种是写到ChannelHandleContext，该方式会到ChannelPipeline链上的下一个ChannelHandle。
 
-![image-20210319211310568](D:\学习笔记\image-20210319211310568.png)
+![image-20210319211310568](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210319211310568.png)
 
 接下来我们将研究 3 个 ChannelHandler 的子类型：编码器、解码器和 SimpleChannel
 
@@ -931,7 +931,7 @@ InboundHandler<T> —— ChannelInboundHandlerAdapter 的一个子类。
 
 两种类型的引导，一种是客户端，一种是服务端。
 
-![image-20210319211801084](D:\学习笔记\image-20210319211801084.png)
+![image-20210319211801084](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210319211801084.png)
 
 第一个绑定端口或者连接主机很容易理解。
 
@@ -941,7 +941,7 @@ InboundHandler<T> —— ChannelInboundHandlerAdapter 的一个子类。
 
 而客户端则不需要，只需要和服务端建立连接，所以只需要一个EventLoop
 
-![image-20210319212248502](D:\学习笔记\image-20210319212248502.png)
+![image-20210319212248502](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210319212248502.png)
 
 ## 传输
 
@@ -951,7 +951,7 @@ InboundHandler<T> —— ChannelInboundHandlerAdapter 的一个子类。
 
 #### 不通过Netty使用OIO和NIO
 
-![image-20210319212553454](D:\学习笔记\image-20210319212553454.png)
+![image-20210319212553454](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210319212553454.png)
 
 ```java
 public class PlainOioServer { 
@@ -999,7 +999,7 @@ e.printStackTrace();
 
 决定改为异步网络编程
 
-![image-20210319212727862](D:\学习笔记\image-20210319212727862.png)
+![image-20210319212727862](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210319212727862.png)
 
 ```java
 public class PlainNioServer { 
@@ -1069,11 +1069,11 @@ key.channel().close();
 
 而Netty就解决了差异化，做相同的事情不同的传输方式只会改动一点。
 
-![image-20210319212919345](D:\学习笔记\image-20210319212919345.png)
+![image-20210319212919345](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210319212919345.png)
 
 我们现在使用Netty和非阻塞I/O来实现相同的事情。
 
-![image-20210319213230351](D:\学习笔记\image-20210319213230351.png)
+![image-20210319213230351](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210319213230351.png)
 
 可以看到只有两处不一样，NioSocketChannel和NioEventLoopGroup。
 
@@ -1083,7 +1083,7 @@ ChannelPipeline 和 ChannelHandler。
 
 ### 传输API
 
-![image-20210319213450953](D:\学习笔记\image-20210319213450953.png)
+![image-20210319213450953](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210319213450953.png)
 
 如图，每个Channel会被分配一个ChannelPipeLine和ChannelConfig。
 
@@ -1093,15 +1093,15 @@ ChannelHandler的典型用途：
 - 提供异常的通知
 - 提供当Channel注册到EventLoop或者注销从EventLoop注销的通知
 
-![image-20210319213651415](D:\学习笔记\image-20210319213651415.png)
+![image-20210319213651415](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210319213651415.png)
 
 writeAndFlush()相当于不用流经到ChannelPipeline的尾端，直接写入底层的Socket通信进行传输。
 
-![image-20210319213825412](D:\学习笔记\image-20210319213825412.png)
+![image-20210319213825412](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210319213825412.png)
 
 Netty的Channel是线程安全的。
 
-![image-20210319213921802](D:\学习笔记\image-20210319213921802.png)
+![image-20210319213921802](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210319213921802.png)
 
 ### 内置的传输
 
@@ -1124,9 +1124,9 @@ Netty的Channel是线程安全的。
 - REDA读数据事件
 - WRITE写数据事件
 
-![image-20210319214612704](D:\学习笔记\image-20210319214612704.png)
+![image-20210319214612704](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210319214612704.png)
 
-![image-20210319214624027](D:\学习笔记\image-20210319214624027.png)
+![image-20210319214624027](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210319214624027.png)
 
 零拷贝：是一种目前只有在Nio和Epoll传输的使用才有的特性。可以使得减少数据的拷贝和上下文的切换。
 
@@ -1156,7 +1156,7 @@ JAVA NIO虽然也提供了相应的抽象，但是因为JDK为了跨平台，所
 
 ### 传输的用例
 
-![image-20210319221444341](D:\学习笔记\image-20210319221444341.png)
+![image-20210319221444341](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210319221444341.png)
 
 ## ByteBuf(Netty字节容器)
 
@@ -1177,7 +1177,7 @@ ByteBuf API的优点
 
 维护了两个不同的索引，readindex,writeindex，一个用于读取，一个用于写入。
 
-![image-20210319222832304](D:\学习笔记\image-20210319222832304.png)
+![image-20210319222832304](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210319222832304.png)
 
 #### ByteBuf的使用模式
 
@@ -1187,7 +1187,7 @@ ByteBuf API的优点
 
 最常用的ByteBuf模式是将数据存储在JVM的堆空间里面。这种模式被称为支撑数组，它能在没有池化的情况下快速分配和释放。这种模式被称为支持数组。
 
-![image-20210319223418816](D:\学习笔记\image-20210319223418816.png)
+![image-20210319223418816](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210319223418816.png)
 
 ##### 直接缓冲区
 
@@ -1199,7 +1199,7 @@ ByteBuffer的java doc明确指出：直接缓冲区的内容将驻留在会被�
 
 缺点就是申请和分配都比较耗费资源。
 
-![image-20210319225005095](D:\学习笔记\image-20210319225005095.png)
+![image-20210319225005095](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210319225005095.png)
 
 ##### 复合缓冲区
 
@@ -1225,13 +1225,13 @@ UnpooledSlicedByteBuf(ridx: 0, widx: 0, cap: 0/0, unwrapped: UnpooledByteBufAllo
 UnpooledSlicedByteBuf(ridx: 0, widx: 0, cap: 0/0, unwrapped: UnpooledByteBufAllocator$InstrumentedUnpooledUnsafeNoCleanerDirectByteBuf(ridx: 0, widx: 0, cap: 8))
 ```
 
-![image-20210320151230712](D:\学习笔记\image-20210320151230712.png)
+![image-20210320151230712](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320151230712.png)
 
 使用原生JAVA NIO比较复杂，还要有数组。
 
-![image-20210320151256506](D:\学习笔记\image-20210320151256506.png)
+![image-20210320151256506](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320151256506.png)
 
-![image-20210320151313369](D:\学习笔记\image-20210320151313369.png)
+![image-20210320151313369](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320151313369.png)
 
 这种方式非常适合JDK NIO里面的Scatter/Gather I/O操作。分散聚合操作。
 
@@ -1243,19 +1243,19 @@ ByteBuf提供了许多超出基本读，写操作的方法用于修改它的数�
 
 ByteBuf的索引是从零开始的，第一个字节的索引是零，最后一个字节的索引是容量-1。
 
-![image-20210320151914349](D:\学习笔记\image-20210320151914349.png)
+![image-20210320151914349](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320151914349.png)
 
 #### 顺序访问索引
 
 同时具有读写索引，这个过程中读索引不能超过写索引，写索引不能超过容量-1。
 
-![image-20210320152107623](D:\学习笔记\image-20210320152107623.png)
+![image-20210320152107623](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320152107623.png)
 
 #### 可丢弃字节
 
 上图有可丢弃字节，可以使用discardReadBytes()方法，可以丢弃它们并且回收空间。
 
-![image-20210320152222847](D:\学习笔记\image-20210320152222847.png)
+![image-20210320152222847](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320152222847.png)
 
 相当于就是将readIndex置为丢弃字节的位置，然后整体向左移动丢弃的字节数量。扩大可写字节数量。我们不是非常建议这样做，因为数据整体移动开销大，除非内存非常宝贵的时候。
 
@@ -1267,7 +1267,7 @@ ByteBuf的索引是从零开始的，第一个字节的索引是零，最后一�
 readBytes(ByteBuf dest);
 ```
 
-![image-20210320152523318](D:\学习笔记\image-20210320152523318.png)
+![image-20210320152523318](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320152523318.png)
 
 #### 可写字节
 
@@ -1291,11 +1291,11 @@ buffer.writeInt(random.nextInt());
 
 可以调用markReaderIndex()，markWriterIndex()，resetWriterIndex()，resetReaderIndex()来标记和重置ByteBuf的读写索引，类似于ByteBuffer的position(int newPosition)一样的效果。
 
-​	![image-20210320153207551](D:\学习笔记\image-20210320153207551.png)
+​	![image-20210320153207551](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320153207551.png)
 
 可以使用clear来同时清零读写索引，轻量级的，不会移动数据。
 
-![image-20210320153237721](D:\学习笔记\image-20210320153237721.png)
+![image-20210320153237721](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320153237721.png)
 
 #### 查找操作
 
@@ -1309,7 +1309,7 @@ boolean process(byte value)
 
 假设你的应用程序需要和所谓的包含有以NULL结尾的内容的Flash套接字集成。
 
-![image-20210320153741102](D:\学习笔记\image-20210320153741102.png)
+![image-20210320153741102](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320153741102.png)
 
 #### 派生缓冲区
 
@@ -1351,7 +1351,7 @@ boolean process(byte value)
         System.out.println(new String(bytes));
 ```
 
-![image-20210320162513960](D:\学习笔记\image-20210320162513960.png)
+![image-20210320162513960](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320162513960.png)
 
 #### 读写操作
 
@@ -1360,25 +1360,25 @@ boolean process(byte value)
 
 get方法合集：
 
-![image-20210320163011495](D:\学习笔记\image-20210320163011495.png)
+![image-20210320163011495](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320163011495.png)
 
-![image-20210320163051616](D:\学习笔记\image-20210320163051616.png)
+![image-20210320163051616](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320163051616.png)
 
-![image-20210320163112228](D:\学习笔记\image-20210320163112228.png)
+![image-20210320163112228](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320163112228.png)
 
 read操作
 
-![image-20210320163253623](D:\学习笔记\image-20210320163253623.png)
+![image-20210320163253623](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320163253623.png)
 
-![image-20210320163301444](D:\学习笔记\image-20210320163301444.png)
+![image-20210320163301444](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320163301444.png)
 
-![image-20210320163324909](D:\学习笔记\image-20210320163324909.png)
+![image-20210320163324909](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320163324909.png)
 
 #### 更多的操作
 
 还有一些其他的操作，比如isReadable()，isWriteable()等
 
-![image-20210320163405965](D:\学习笔记\image-20210320163405965.png)
+![image-20210320163405965](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320163405965.png)
 
 ### ByteBufHolder接口
 
@@ -1386,7 +1386,7 @@ read操作
 
 该接口可以提供高级特性，比如缓冲池化，可以从池中获取ByteBuf，使用完可以还回池子。
 
-![image-20210320165037339](D:\学习笔记\image-20210320165037339.png)
+![image-20210320165037339](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320165037339.png)
 
 ### ByteBuf分配
 
@@ -1396,11 +1396,11 @@ read操作
 
 为了降低分配和释放内存的开销，Netty通过ByteBufAllocator实现了ByteBuf的池化。
 
-![image-20210320165541428](D:\学习笔记\image-20210320165541428.png)
+![image-20210320165541428](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320165541428.png)
 
 可以通过Channel(每个Channel都可以有不同的ByteBufAllocator)或者绑定到ChannelHandle的ChannelHandleContext上获取一个ByteBufAllocator。
 
-![image-20210320170106341](D:\学习笔记\image-20210320170106341.png)
+![image-20210320170106341](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320170106341.png)
 
 Netty提供了两种实现：PooledByteBufAllocator和UnpooledByteBufAllocator。前者池化了ByteBuf的实例以提高性能，并最大限度减少内存碎片。因为使用了jemalloc的高效方法来分配内存。第二种则是每次都会创建一个新的ByteBuf。
 
@@ -1408,7 +1408,7 @@ Netty提供了两种实现：PooledByteBufAllocator和UnpooledByteBufAllocator�
 
 创建未池化的ByteBuf
 
-![image-20210320171620438](D:\学习笔记\image-20210320171620438.png)
+![image-20210320171620438](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320171620438.png)
 
 #### ByteBufUtil类
 
@@ -1422,7 +1422,7 @@ hexdump()以16进制的方式打印ByteBuf的内容，equlas方法比较两个�
 
 只要引用计数大于0，那么就不会被释放，如果等于0相当于资源没被使用，那么就释放掉。
 
-![image-20210320172014272](D:\学习笔记\image-20210320172014272.png)
+![image-20210320172014272](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320172014272.png)
 
 ## ChannelHandler和ChannelPipeline
 
@@ -1430,13 +1430,13 @@ hexdump()以16进制的方式打印ByteBuf的内容，equlas方法比较两个�
 
 #### Channel生命周期
 
-![image-20210320172149544](D:\学习笔记\image-20210320172149544.png)
+![image-20210320172149544](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320172149544.png)
 
-![image-20210320172158017](D:\学习笔记\image-20210320172158017.png)
+![image-20210320172158017](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320172158017.png)
 
 #### ChannelHandler生命周期
 
-![image-20210320172341923](D:\学习笔记\image-20210320172341923.png)
+![image-20210320172341923](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320172341923.png)
 
 Netty 定义了下面两个重要的 ChannelHandler 子接口：
 
@@ -1448,11 +1448,11 @@ Netty 定义了下面两个重要的 ChannelHandler 子接口：
 
 #### ChannelInboundHandler接口
 
-![image-20210320172422950](D:\学习笔记\image-20210320172422950.png)
+![image-20210320172422950](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320172422950.png)
 
-![image-20210320172443679](D:\学习笔记\image-20210320172443679.png)
+![image-20210320172443679](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320172443679.png)
 
-![image-20210320172458943](D:\学习笔记\image-20210320172458943.png)
+![image-20210320172458943](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320172458943.png)
 
 SimpeDiscardHandler会自动释放资源。
 
@@ -1460,7 +1460,7 @@ SimpeDiscardHandler会自动释放资源。
 
 #### ChannelOutboundHandler接口
 
-![image-20210320172525695](D:\学习笔记\image-20210320172525695.png)
+![image-20210320172525695](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320172525695.png)
 
 ChannelPromise是ChannelFutrue的一个子类。
 
@@ -1470,7 +1470,7 @@ ChannelPromise是ChannelFutrue的一个子类。
 
 类作为自己的 ChannelHandler 的起始点。
 
-![image-20210320172627200](D:\学习笔记\image-20210320172627200.png)
+![image-20210320172627200](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320172627200.png)
 
 可以理解为适配器模式。
 
@@ -1480,13 +1480,13 @@ Netty使用引用计数来处理池化的ByteBuf,所以在使用完某个ByteBuf
 
 Netty提供了检测是否出现内存泄漏的功能。
 
-![image-20210320172954922](D:\学习笔记\image-20210320172954922.png)
+![image-20210320172954922](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320172954922.png)
 
-![image-20210320173016513](D:\学习笔记\image-20210320173016513.png)
+![image-20210320173016513](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320173016513.png)
 
 ReferenceCountUtil.release();
 
-![image-20210320173104068](D:\学习笔记\image-20210320173104068.png)
+![image-20210320173104068](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320173104068.png)
 
 总之，如果一个消息被消费了或者丢弃了，并且没有传递给ChannelPipeline的下一个ChannelOutBoundHandler，那么用户就有责任释放。
 
@@ -1494,7 +1494,7 @@ ReferenceCountUtil.release();
 
 每个Channel都会被分配一个新的ChannelPipeline，关联是永久性的。Channel不能附加别的，也不能删除分配的ChannelPipeline。事件被处理，然后通过调用ChannelHandleContext实现转发给下一个ChannelHandler。
 
-![image-20210320173944728](D:\学习笔记\image-20210320173944728.png)
+![image-20210320173944728](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320173944728.png)
 
 Netty总是将入站口左侧作为头部，右侧作为尾部。
 
@@ -1502,19 +1502,19 @@ Netty总是将入站口左侧作为头部，右侧作为尾部。
 
 ChannlHandler可以通过添加或者删除其他的ChannelHandler来实时的修改ChannelPipeLine的布局。这是ChannelHandler最重要的功能之一。
 
-![image-20210320174316179](D:\学习笔记\image-20210320174316179.png)
+![image-20210320174316179](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320174316179.png)
 
-![image-20210320174357197](D:\学习笔记\image-20210320174357197.png)
+![image-20210320174357197](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320174357197.png)
 
-![image-20210320174415804](D:\学习笔记\image-20210320174415804.png)
+![image-20210320174415804](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320174415804.png)
 
 #### 触发事件
 
-![image-20210320174650318](D:\学习笔记\image-20210320174650318.png)
+![image-20210320174650318](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320174650318.png)
 
 调用当前调用位置ChannelInboundHandler的下一个xxx方法，比如上图的调用下一个Registered方法。
 
-![image-20210320174855761](D:\学习笔记\image-20210320174855761.png)
+![image-20210320174855761](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320174855761.png)
 
 将调用ChannelPipeline中的下一个ChannelOutboundHandler的bind()方法。
 
@@ -1532,31 +1532,31 @@ ChannelHandlerContext代表了ChannelPipeline和ChannelHandler之间的关系。
 
 并且有许多和Channel和ChannelPipeline相同的方法，不同的是如果调用ChannelHandlerContext方法会到下一个ChannelHandler，而Channel和ChannelPipeline都是沿着整个ChannelPipeline传播。
 
-![image-20210320175818139](D:\学习笔记\image-20210320175818139.png)
+![image-20210320175818139](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320175818139.png)
 
-![image-20210320175906614](D:\学习笔记\image-20210320175906614.png)
+![image-20210320175906614](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320175906614.png)
 
 #### 使用ChannelHandlerContext
 
-![image-20210320175931745](D:\学习笔记\image-20210320175931745.png)
+![image-20210320175931745](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320175931745.png)
 
-![image-20210320180014140](D:\学习笔记\image-20210320180014140.png)
+![image-20210320180014140](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320180014140.png)
 
 channel或者channelPipeline的write将流经整个ChannelPipeline。
 
-![image-20210320180151798](D:\学习笔记\image-20210320180151798.png)
+![image-20210320180151798](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320180151798.png)
 
 #### ChannelHandler和ChannelHandlerContext的高级用法
 
-![image-20210320180246234](D:\学习笔记\image-20210320180246234.png)
+![image-20210320180246234](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320180246234.png)
 
 把引用缓存，可能会被使用到ChannelHandler之外，也可能被不同的线程使用。
 
 也可以使用多个ChannelPipe共享同一个ChannelHandler，所以一个ChannelHandler也可以绑定多个ChannelHandlerContext实例，对应的ChannelHandler必须使用@Sharable注解标注。
 
-![image-20210320180711642](D:\学习笔记\image-20210320180711642.png)
+![image-20210320180711642](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320180711642.png)
 
-![image-20210320181058233](D:\学习笔记\image-20210320181058233.png)
+![image-20210320181058233](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320181058233.png)
 
 为什么错误呢？首先如果标注Sharable注解，意味ChannelHandler可能会被多个Channel引用，也就意味这会有多个ChannelPipeline，每个Channel又可能会被不同的EventLoop来执行，那么多个线程并发访问ChannelHandler，里面的又是++操作，就会出现线程安全问题，推荐使用原子类。CAS自增。
 
@@ -1566,7 +1566,7 @@ channel或者channelPipeline的write将流经整个ChannelPipeline。
 
 #### 处理入站异常
 
-![image-20210320182352266](D:\学习笔记\image-20210320182352266.png)
+![image-20210320182352266](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320182352266.png)
 
 - ChannelHandler.exceptionCaught()的默认实现是简单地将当前异常转发给
 
@@ -1584,9 +1584,9 @@ ChannelPipeline 中的下一个 ChannelHandler；
 
 - 每个出战操作都会返回一个ChannelFuture。
 
-  ![image-20210320182659861](D:\学习笔记\image-20210320182659861.png)
+  ![image-20210320182659861](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320182659861.png)
 
-![image-20210320182708839](D:\学习笔记\image-20210320182708839.png)
+![image-20210320182708839](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320182708839.png)
 
 ## EventLoop和线程模型
 
@@ -1598,15 +1598,15 @@ ChannelPipeline 中的下一个 ChannelHandler；
 
 运行任何来处理连接的生命周期内发生的事件是网络框架的基本功能。Netty使用了事件循环EventLoop来适配该术语。
 
-![image-20210320183224619](D:\学习笔记\image-20210320183224619.png)
+![image-20210320183224619](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320183224619.png)
 
 该代码体现了事件循环的基本思想，其中每个任务都是一个Runnable的实例。
 
-![image-20210320222148330](D:\学习笔记\image-20210320222148330.png)
+![image-20210320222148330](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320222148330.png)
 
 在这个模型中，一个EventLoop将由一个永远都不会改动的Thread驱动，同时任务可以直接交给EventLoop实现，以立即执行或者调度执行。根据可配置和可用核心不同，可能会创建多个EventLoop实例以优化资源的使用。并且单个EventLoop可能会被服务于多个Channel。
 
-![image-20210320222437426](D:\学习笔记\image-20210320222437426.png)
+![image-20210320222437426](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320222437426.png)
 
 根据FIFO顺序执行队列的任务。
 
@@ -1622,19 +1622,19 @@ ChannelPipeline 中的下一个 ChannelHandler；
 
 #### JDK的任务调度API
 
-![image-20210320223009323](D:\学习笔记\image-20210320223009323.png)
+![image-20210320223009323](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320223009323.png)
 
-![image-20210320223022804](D:\学习笔记\image-20210320223022804.png)
+![image-20210320223022804](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320223022804.png)
 
 #### 使用EventLoop调度任务
 
-![image-20210320223725686](D:\学习笔记\image-20210320223725686.png)
+![image-20210320223725686](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320223725686.png)
 
-![image-20210320223735157](D:\学习笔记\image-20210320223735157.png)
+![image-20210320223735157](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320223735157.png)
 
 eventLoop()提供了许多调度任务的方法，基于JUC之上的方法。
 
-![image-20210320223832563](D:\学习笔记\image-20210320223832563.png)
+![image-20210320223832563](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210320223832563.png)
 
 ### 实现细节
 
@@ -1646,7 +1646,7 @@ Netty的卓越性能取决于对于当前执行的Thread身份的确定，也就
 
 这为什么就解释了任何的Thread与Channel直接交互而不要在ChannelHandler中进行同步呢？
 
-![image-20210321132254209](D:\学习笔记\image-20210321132254209.png)
+![image-20210321132254209](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210321132254209.png)
 
 **为什么？**
 
@@ -1660,7 +1660,7 @@ Netty的卓越性能取决于对于当前执行的Thread身份的确定，也就
 
 异步传输实现只使用了少量的EventLoop，而且在当前的线程模型中，可能会被多个Channel所共享使用。
 
-![image-20210321132833915](D:\学习笔记\image-20210321132833915.png)
+![image-20210321132833915](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210321132833915.png)
 
 另外需要注意的点是EventlLoop方式对ThreadLocal的影响，因为一个EventLoop通常会被用于支撑多个EventLoop，所以这对于所相关联的Channel来说，ThreadLocal都是一样。
 
@@ -1668,7 +1668,7 @@ Netty的卓越性能取决于对于当前执行的Thread身份的确定，也就
 
 与传统的Socket类似。
 
-![image-20210321133039200](D:\学习笔记\image-20210321133039200.png)
+![image-20210321133039200](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210321133039200.png)
 
 OIO，一个EventLoop对应一个Channel。
 
@@ -1680,15 +1680,15 @@ OIO，一个EventLoop对应一个Channel。
 
 ### Bootstrap
 
-![image-20210321133159254](D:\学习笔记\image-20210321133159254.png)
+![image-20210321133159254](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210321133159254.png)
 
 为什么引导类是Cloneable的。
 
 有时候可能会需要多个具有类似配置的或者完全相同的引导类。
 
-![image-20210321133309239](D:\学习笔记\image-20210321133309239.png)
+![image-20210321133309239](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210321133309239.png)
 
-![image-20210321133317155](D:\学习笔记\image-20210321133317155.png)
+![image-20210321133317155](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210321133317155.png)
 
 ### 引导客户端和无连接协议
 
@@ -1696,21 +1696,21 @@ OIO，一个EventLoop对应一个Channel。
 
 Bootstrap被用于客户端或者使用了无连接协议的应用程序中。
 
-![image-20210321133425640](D:\学习笔记\image-20210321133425640.png)
+![image-20210321133425640](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210321133425640.png)
 
-![image-20210321133443139](D:\学习笔记\image-20210321133443139.png)
+![image-20210321133443139](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210321133443139.png)
 
 #### 引导客端
 
-![image-20210321133517814](D:\学习笔记\image-20210321133517814.png)
+![image-20210321133517814](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210321133517814.png)
 
-![image-20210321133540463](D:\学习笔记\image-20210321133540463.png)
+![image-20210321133540463](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210321133540463.png)
 
 #### Channel和EventLoopGroup 的兼容性
 
-![image-20210321133639616](D:\学习笔记\image-20210321133639616.png)
+![image-20210321133639616](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210321133639616.png)
 
-![image-20210321133708122](D:\学习笔记\image-20210321133708122.png)
+![image-20210321133708122](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210321133708122.png)
 
 不能乱使用。
 
@@ -1718,7 +1718,7 @@ Bootstrap被用于客户端或者使用了无连接协议的应用程序中。
 
 #### ServerBootstrap类
 
-![image-20210321133734701](D:\学习笔记\image-20210321133734701.png)
+![image-20210321133734701](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210321133734701.png)
 
 
 
@@ -1726,9 +1726,9 @@ Bootstrap被用于客户端或者使用了无连接协议的应用程序中。
 
 可以理解为options和attr都是为sockerChannel配置的，也就是相当于Nio里面的ServerSocketChannel的配置，当accept建立连接后，要创建一个Channel并且分配给worker的NioEventLoopGroup里面的一个EventLoop，channelHandler和childAtter都是配置worker的事件循环组的事件循环的。
 
-![image-20210321134443300](D:\学习笔记\image-20210321134443300.png)
+![image-20210321134443300](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210321134443300.png)
 
-![image-20210321134452028](D:\学习笔记\image-20210321134452028.png)
+![image-20210321134452028](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210321134452028.png)
 
 ### 从Channel引导客户端
 
@@ -1738,29 +1738,29 @@ Bootstrap被用于客户端或者使用了无连接协议的应用程序中。
 
 一个很好的解决方案就是：通过已被接受的子Channel所属的EventLoop传递给BootStrap的group方法来共享该Eventloop。
 
-![image-20210321135119570](D:\学习笔记\image-20210321135119570.png)
+![image-20210321135119570](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210321135119570.png)
 
-![image-20210321135135654](D:\学习笔记\image-20210321135135654.png)
+![image-20210321135135654](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210321135135654.png)
 
 ### 在引导过程中添加多个Channelhandler
 
-![image-20210321135307078](D:\学习笔记\image-20210321135307078.png)
+![image-20210321135307078](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210321135307078.png)
 
 ### 使用Netty的ChannelOption和属性
 
-![image-20210321135420554](D:\学习笔记\image-20210321135420554.png)
+![image-20210321135420554](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210321135420554.png)
 
 Netty提供lAttrubuteMap抽象，Attributekey<T>。使用这些属性。
 
 ### 引导DatagramChannel
 
-![image-20210321135608788](D:\学习笔记\image-20210321135608788.png)
+![image-20210321135608788](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210321135608788.png)
 
 OIoDatagramChannel
 
 ### 关闭
 
-![image-20210321135634750](D:\学习笔记\image-20210321135634750.png)
+![image-20210321135634750](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210321135634750.png)
 
 shutdownGracefully()也是异步方法，需要阻塞等待直到它关闭完成。
 
@@ -1768,9 +1768,9 @@ shutdownGracefully()也是异步方法，需要阻塞等待直到它关闭完成
 
 特殊的Channel实现 ：EmbeddedChannel，它是Netty专门为改进针对ChannelHandler的单元测试提供的。
 
-![image-20210321135846945](D:\学习笔记\image-20210321135846945.png)
+![image-20210321135846945](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210321135846945.png)
 
-![image-20210321135854985](D:\学习笔记\image-20210321135854985.png)
+![image-20210321135854985](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210321135854985.png)
 
 相当于可以在一端又接受入站消息，也接受出战消息。也就是发送入站消息，写可以发送出战消息。
 
@@ -1782,29 +1782,29 @@ shutdownGracefully()也是异步方法，需要阻塞等待直到它关闭完成
 
 特定的解码器将产生固定为3字节大小的帧。
 
-![image-20210321144112053](D:\学习笔记\image-20210321144112053.png)
+![image-20210321144112053](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210321144112053.png)
 
-![image-20210321144137234](D:\学习笔记\image-20210321144137234.png)	
+![image-20210321144137234](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210321144137234.png)	
 
-![image-20210321145802212](D:\学习笔记\image-20210321145802212.png)
+![image-20210321145802212](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210321145802212.png)
 
-![image-20210321145809426](D:\学习笔记\image-20210321145809426.png)
+![image-20210321145809426](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210321145809426.png)
 
 ### 测试出战消息
 
 为出战的每个数据，都将负数转换为绝对值的编码器。
 
-![image-20210321145854368](D:\学习笔记\image-20210321145854368.png)
+![image-20210321145854368](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210321145854368.png)
 
-![image-20210321145908351](D:\学习笔记\image-20210321145908351.png)
+![image-20210321145908351](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210321145908351.png)
 
-![image-20210321145924094](D:\学习笔记\image-20210321145924094.png)
+![image-20210321145924094](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210321145924094.png)
 
 ### 测试异常处理
 
-![image-20210321150034537](D:\学习笔记\image-20210321150034537.png)
+![image-20210321150034537](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210321150034537.png)
 
-![image-20210321150050514](D:\学习笔记\image-20210321150050514.png)
+![image-20210321150050514](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210321150050514.png)
 
 ## 编解码器框架
 
@@ -1815,13 +1815,13 @@ shutdownGracefully()也是异步方法，需要阻塞等待直到它关闭完成
 
 #### 抽象类ByteToMessageDecoder
 
-![image-20210322103807803](D:\学习笔记\image-20210322103807803.png)
+![image-20210322103807803](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210322103807803.png)
 
 decodeLast相当于在通道关闭的时候调用一次。
 
-![image-20210322103846607](D:\学习笔记\image-20210322103846607.png)
+![image-20210322103846607](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210322103846607.png)
 
-![image-20210322103857223](D:\学习笔记\image-20210322103857223.png)
+![image-20210322103857223](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210322103857223.png)
 
 一旦消息被解码或者编码，它会呗ReferenceCountUtil.release(message)调用自动释放。
 
@@ -1833,7 +1833,7 @@ ReferenceCountUtil.retain(message)方法来增加引用计数。上面的图就�
 
 参数S代表了用于状态管理的类型，Void代表不需要状态管理
 
-![image-20210322104248058](D:\学习笔记\image-20210322104248058.png)
+![image-20210322104248058](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210322104248058.png)
 
 如果没有足够的字节数会抛出Error并且被父类中被处理。
 
@@ -1851,13 +1851,13 @@ ReferenceCountUtil.retain(message)方法来增加引用计数。上面的图就�
 
 #### 抽象类 MessageToMessageDecoder
 
-![image-20210322104630988](D:\学习笔记\image-20210322104630988.png)
+![image-20210322104630988](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210322104630988.png)
 
 将POJO转换为另外一种。
 
 可以使用将Integer转换为String。
 
-![image-20210322104800798](D:\学习笔记\image-20210322104800798.png)
+![image-20210322104800798](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210322104800798.png)
 
 ```java
 package netty;
@@ -1893,13 +1893,13 @@ public class IntegerToStringDecoder extends MessageToMessageDecoder<Integer> {
 
 #### 抽象类MessageToByteEncoder
 
-![image-20210322105437744](D:\学习笔记\image-20210322105437744.png)
+![image-20210322105437744](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210322105437744.png)
 
 
 
-![image-20210322105553497](D:\学习笔记\image-20210322105553497.png)
+![image-20210322105553497](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210322105553497.png)
 
-![image-20210322105608323](D:\学习笔记\image-20210322105608323.png)
+![image-20210322105608323](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210322105608323.png)
 
 ```java
 package netty;
@@ -1925,9 +1925,9 @@ public class ShortToByteMessage extends MessageToByteEncoder<Short> {
 
 #### 抽象类 MessageToMessageEncoder
 
-![image-20210322105802529](D:\学习笔记\image-20210322105802529.png)
+![image-20210322105802529](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210322105802529.png)
 
-![image-20210322105853307](D:\学习笔记\image-20210322105853307.png)
+![image-20210322105853307](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210322105853307.png)
 
 ​	
 
@@ -1939,11 +1939,11 @@ public class ShortToByteMessage extends MessageToByteEncoder<Short> {
 
 #### 抽象类 ByteToMessageCode
 
-![image-20210322110332019](D:\学习笔记\image-20210322110332019.png)
+![image-20210322110332019](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210322110332019.png)
 
 #### 抽象类 MessageToMessageCodec
 
-![image-20210322110349419](D:\学习笔记\image-20210322110349419.png)
+![image-20210322110349419](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210322110349419.png)
 
 ```java
 public class IntegerToStringCodec extends MessageToMessageCodec<Integer,String> {
@@ -2095,11 +2095,11 @@ public class CombinedChannelDuplexHandler<I extendChannelInboundHandler,O extend
 
 这个类充当了容器。
 
-![image-20210322114411304](D:\学习笔记\image-20210322114411304.png)
+![image-20210322114411304](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210322114411304.png)
 
-![image-20210322114506323](D:\学习笔记\image-20210322114506323.png)
+![image-20210322114506323](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210322114506323.png)
 
-![image-20210322114515108](D:\学习笔记\image-20210322114515108.png)
+![image-20210322114515108](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210322114515108.png)
 
 ## 预置的ChannelHandler和编解码器
 
@@ -2117,15 +2117,15 @@ JAVA为了支持SSL/TLS,提供了net.ssl包。SSLContext和SSLEngine类使得实
 
 Netty通过一个SslHandler的ChannelHander实现利用这个API。其中SslHandler在内部使用SSLEngine来完成实际的工作。
 
-![image-20210322115215489](D:\学习笔记\image-20210322115215489.png)
+![image-20210322115215489](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210322115215489.png)
 
 通过该Handler进行入站数据的解密，和出战数据的加密。
 
-![image-20210322120655801](D:\学习笔记\image-20210322120655801.png)
+![image-20210322120655801](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210322120655801.png)
 
 sshHandler具有一些有用的方法，比如节点之间的验证和协商加密方式。可以通过配置SslHandler来修改它的行为。
 
-![image-20210322120824149](D:\学习笔记\image-20210322120824149.png)
+![image-20210322120824149](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210322120824149.png)
 
 ### 构建基于Netty的Http/Https应用程序
 
@@ -2135,11 +2135,11 @@ Netty为Http/Https提供了一系列的ChannelHandler
 
 Http是居于请求/响应模式的：客户端向服务器发送一个请求，然后服务端响应请求。
 
-![image-20210322121238393](D:\学习笔记\image-20210322121238393.png)
+![image-20210322121238393](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210322121238393.png)
 
 一个完整的Http请求，FullHttpRequest分为请求头，和多个HttpContent，和LastHttpContent标注了该Http请求的结束。
 
-![image-20210322122338707](D:\学习笔记\image-20210322122338707.png)
+![image-20210322122338707](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210322122338707.png)
 
 FullHttpResponce
 
@@ -2149,7 +2149,7 @@ FullHttpResponce
 
 HttpObjectAggregator  aggregator聚合器罢了
 
-![image-20210322122439366](D:\学习笔记\image-20210322122439366.png)
+![image-20210322122439366](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210322122439366.png)
 
 将Http请求编码为字节，这个用于客户端发请求进行编码
 
@@ -2211,7 +2211,7 @@ HttpServerCodec等同于new HttpRequestDecoder()+new HttpResponseEncoder()；
 
 可以将数据压缩和解压，使得数据量小，但是可能会增加CPU的负载。
 
-但是推荐文本数据![image-20210322124359926](D:\学习笔记\image-20210322124359926.png)
+但是推荐文本数据![image-20210322124359926](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210322124359926.png)
 
 同时支持gzip和deflate编码。
 
@@ -2281,9 +2281,9 @@ public class HttpsCodecInitializer extends ChannelInitializer<Channel> {
 
 Websocket实现了客户端和服务端之间提供了真正的双向数据交换。替换了HTTP轮询的方案。
 
-![image-20210322144531573](D:\学习笔记\image-20210322144531573.png)
+![image-20210322144531573](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210322144531573.png)
 
-![image-20210322144702971](D:\学习笔记\image-20210322144702971.png)
+![image-20210322144702971](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210322144702971.png)
 
 创建一个WebSocket服务器。
 
@@ -2345,7 +2345,7 @@ public class WebSocketServerInitalizer extends ChannelInitializer<Channel> {
 
 连接管理。使得你的程序更加安全，高效和易用。
 
-![image-20210322145505236](D:\学习笔记\image-20210322145505236.png)
+![image-20210322145505236](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210322145505236.png)
 
 IdleStateHandler连接空闲时间长，将会触发IdelStateEvent事件，可以通过inboundHandler重写userEventTriggered()来处理该事件
 
@@ -2384,7 +2384,7 @@ public class IdleStateHandlerInitializer extends ChannelInitializer<Channel> {
 
 #### 基于分隔符的协议
 
-![image-20210322150808184](D:\学习笔记\image-20210322150808184.png)
+![image-20210322150808184](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210322150808184.png)
 
 DelimiterBasedFrameDecoder ：用户提供的分隔符来提取帧
 
@@ -2392,9 +2392,9 @@ LineBasedFrameDecoder ：使用\n或者\r\n分隔的帧的解码器
 
 \n是换行，\r是回车 \n\r是回车加换行  enter键是回车加换行
 
-![image-20210322150925295](D:\学习笔记\image-20210322150925295.png)
+![image-20210322150925295](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210322150925295.png)
 
-![image-20210322151301794](D:\学习笔记\image-20210322151301794.png)
+![image-20210322151301794](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210322151301794.png)
 
 ```java
 public class LineBasedHandlerInitializer extends ChannelInitializer<Channel> {
@@ -2503,15 +2503,15 @@ public class CmdHandlerInitializer extends ChannelInitializer<Channel> {
 
 #### 基于长度的协议
 
-![image-20210322154417970](D:\学习笔记\image-20210322154417970.png)
+![image-20210322154417970](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210322154417970.png)
 
 一个固定长度的，FixedLengthFrameDecoder。
 
 一个可变长度的，LengthFieldBasedFrameDecoder，首先在帧的头部提取该帧的长度，然后获取指定的长度。
 
-![image-20210322154524523](D:\学习笔记\image-20210322154524523.png)
+![image-20210322154524523](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210322154524523.png)
 
-![image-20210322154534308](D:\学习笔记\image-20210322154534308.png)
+![image-20210322154534308](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210322154534308.png)
 
 ```java
 /**
@@ -2545,7 +2545,7 @@ public class LengthFieldInitializer extends ChannelInitializer<Channel> {
 
 **首先可以使用NIO零拷贝，这种特性消除了将文件的内容从文件系统移动到网络栈的复制过程。**一切都在Netty的核心中发生，所以只需要使用一个FileRegion接口的实现。
 
-下列代码展示了如何从FileInputStream创建一个DefaultFileRegion，并将其写入Channel，从而利用零拷贝特性来传输一个文件的内容。![image-20210322162648537](D:\学习笔记\image-20210322162648537.png)
+下列代码展示了如何从FileInputStream创建一个DefaultFileRegion，并将其写入Channel，从而利用零拷贝特性来传输一个文件的内容。![image-20210322162648537](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210322162648537.png)
 
 FileRegion接口可以提供了零拷贝功能。
 
@@ -2553,7 +2553,7 @@ FileRegion接口可以提供了零拷贝功能。
 
 **ChunkedWriteHandler支持异步写大型数据流，而又不会导致大量的内存消耗。为什么？**
 
-![image-20210322164115729](D:\学习笔记\image-20210322164115729.png)
+![image-20210322164115729](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210322164115729.png)
 
 ChunkedWriteHandler处理的数据需要实现interface ChunkedInput<B>，其中类型参数B是readChunk()方法的返回类型。有默认4个该接口实现在Netty中
 
@@ -2596,7 +2596,7 @@ JDK提供了ObjectOutputstream和ObjectInputStream来进行序列化。
 
 如果你的应用程序必须要和使用了ObjectOutputstream和ObjectInputStream的远程结点进行交互，并且兼容性也是你最关心的，那么JDK序列化将是你的正确选择。
 
-![image-20210322171328112](D:\学习笔记\image-20210322171328112.png)
+![image-20210322171328112](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210322171328112.png)
 
 对方是JDK，而我们是Netty，使用CompatibleObjectDecoder/Encoder
 
@@ -2604,7 +2604,7 @@ JDK提供了ObjectOutputstream和ObjectInputStream来进行序列化。
 
 #### JBOSS Marshlling进行序列化
 
-![image-20210322172842173](D:\学习笔记\image-20210322172842173.png)
+![image-20210322172842173](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210322172842173.png)
 
 ```java
 public class MarshallingInitializer extends ChannelInitializer<Channel> {
@@ -2656,7 +2656,7 @@ ProtoBufVarint32FrameDecoder可以根据消息头的32位int分割出ByteBuf，�
 
 ProtoBufVarint32LengthFieldPrepender 可以向ByteBuf里面追加一个32位整形的长度字段值，标识这个消息的长度。	
 
-![image-20210322174558964](D:\学习笔记\image-20210322174558964.png)
+![image-20210322174558964](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210322174558964.png)
 
 ```java
 
@@ -2845,13 +2845,13 @@ message ResponseUser{
 
 ### 我们的WebSocket示例程序
 
-![image-20210323111543275](D:\学习笔记\image-20210323111543275.png)
+![image-20210323111543275](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210323111543275.png)
 
 ### 添加WebSocket支持
 
 从标准的Http/Https协议切换到WebSocket的时候，将会使用一种升级握手的机制。我们的应用程序采取以下约定：如果请求的URL 以/ws结尾，那么我们将该协议升级为WebSocket，否则，服务器使用基本的HTTPS
 
-![image-20210323111851787](D:\学习笔记\image-20210323111851787.png)
+![image-20210323111851787](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210323111851787.png)
 
 #### 处理HTTP请求
 
@@ -2941,7 +2941,7 @@ public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
 
 #### 处理WebSocket帧
 
-### ![image-20210323121146865](D:\学习笔记\image-20210323121146865.png)	
+### ![image-20210323121146865](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210323121146865.png)	
 
 下面的聊天程序代码将使用
 
@@ -2985,7 +2985,7 @@ public class TextWebSocketFrameHandler extends SimpleChannelInboundHandler<TextW
 
 #### 初始化ChannelPipeHandler
 
-![image-20210323123453188](D:\学习笔记\image-20210323123453188.png)
+![image-20210323123453188](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210323123453188.png)
 
 ```java
 public class ChatServerInitializer extends ChannelInitializer<Channel> {
@@ -3014,11 +3014,11 @@ public class ChatServerInitializer extends ChannelInitializer<Channel> {
 }
 ```
 
-![image-20210323123749199](D:\学习笔记\image-20210323123749199.png)
+![image-20210323123749199](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210323123749199.png)
 
 WebSocket协议升级以后会移除所有Http相关的Handler和编解码器。
 
-![image-20210323123820508](D:\学习笔记\image-20210323123820508.png)
+![image-20210323123820508](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210323123820508.png)
 
 #### 引导
 
@@ -3076,7 +3076,7 @@ public class ChatServer {
 
 可以进行实施通信。
 
-![image-20210323130906093](D:\学习笔记\image-20210323130906093.png)
+![image-20210323130906093](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210323130906093.png)
 
 如何进行在该基础上进行加密呢？
 
@@ -3154,7 +3154,7 @@ UDP提供了向多个接收者发送消息的额外传输模式。
 
 ### UDP示例应用程序
 
-![image-20210323164918272](D:\学习笔记\image-20210323164918272.png)
+![image-20210323164918272](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210323164918272.png)
 
 我们将打开一个文件，把每一行都作为一个消息广播到一个指定的端口。
 
@@ -3204,15 +3204,15 @@ public class LogEvent {
 
 ### 编写广播者
 
-![image-20210323165818140](D:\学习笔记\image-20210323165818140.png)
+![image-20210323165818140](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210323165818140.png)
 
 想要使用UDP，需要使用以上的消息容器和对应的Channel类型。
 
 比如DatagramChannel和DatagramPacket。
 
-![image-20210323170113180](D:\学习笔记\image-20210323170113180.png)
+![image-20210323170113180](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210323170113180.png)
 
-![image-20210323170126185](D:\学习笔记\image-20210323170126185.png)
+![image-20210323170126185](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210323170126185.png)
 
 将从文件取出一行数据，然后包装为LogEvent，然后再进行编码为DatagramPacket，将数据以UDP数据报的形式发送出去。广播到多个节点。
 
@@ -3398,7 +3398,7 @@ System.out.println(builder.toString());
 
 
 
-![image-20210323214039944](D:\学习笔记\image-20210323214039944.png)
+![image-20210323214039944](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210323214039944.png)
 
 ```java
 public class LogEventDecoder extends MessageToMessageDecoder<DatagramPacket> {
@@ -3464,9 +3464,9 @@ public class LogEventMonitor {
     }
 ```
 
-![image-20210323233202172](D:\学习笔记\image-20210323233202172.png)
+![image-20210323233202172](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210323233202172.png)
 
-![image-20210323233311996](D:\学习笔记\image-20210323233311996.png)
+![image-20210323233311996](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210323233311996.png)
 
 
 

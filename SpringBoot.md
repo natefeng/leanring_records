@@ -6,7 +6,7 @@
 
 想当于告诉springBoot该类是一个配置类 == spring以前的配置文件
 
-![image-20210219213008818](./image-20210219213008818.png)
+![image-20210219213008818](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210219213008818.png)
 
 bean注解给容器中添加组件，以方法名为组件的id,返回类型为组件类型
 
@@ -25,11 +25,11 @@ public @interface Configuration {
 
 ```
 
-![image-20210219214429551](./image-20210219214429551.png)
+![image-20210219214429551](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210219214429551.png)
 
 ### Import
 
-![image-20210219215417274](./image-20210219215417274.png)
+![image-20210219215417274](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210219215417274.png)
 
 将指定类型的组件导入到容器中
 
@@ -59,7 +59,7 @@ public @interface RestController {
 
 条件装配注解，比如ConditionalBean表明容器中有指定的Bean下面的类或者方法代码才生效
 
-![image-20210220202855751](./image-20210220202855751.png)
+![image-20210220202855751](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210220202855751.png)
 
 ### ImportResource
 
@@ -67,7 +67,7 @@ public @interface RestController {
 
 比如在xml文件中注册了许多Bean，然后可以直接将该注解标注在配置类上让该xml文件生效
 
-![image-20210220203327186](./image-20210220203327186.png)
+![image-20210220203327186](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210220203327186.png)
 
 ### ConfigurationProperties
 
@@ -80,13 +80,13 @@ mycar.brand = BYD
 mycar.price = 100000;    
 ```
 
-![image-20210220204124845](./image-20210220204124845.png)
+![image-20210220204124845](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210220204124845.png)
 
 还有一种方法
 
 在配置类上标注EnableConfigurationProperties，并且指定要为哪个类开启配置绑定功能，还有将该类加入到容器中，常用于第三方JAR包，因为第三方JAR包如果没有标注Compoent注解，没有在容器中可以使用该方法
 
-![image-20210220204731195](./image-20210220204731195.png)
+![image-20210220204731195](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210220204731195.png)
 
 ## 自动配置原理
 
@@ -155,7 +155,7 @@ public @interface AutoConfigurationPackage {
 
 ```
 
-![image-20210221123854996](./image-20210221123854996.png)
+![image-20210221123854996](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210221123854996.png)
 
 所以说如果没有指定扫描包，默认就是启动配置类所在的包会全部扫描进去
 
@@ -349,7 +349,7 @@ org.springframework.boot.autoconfigure.webservices.WebServicesAutoConfiguration,
 org.springframework.boot.autoconfigure.webservices.client.WebServiceTemplateAutoConfiguration
 ```
 
-![image-20210221132839437](./image-20210221132839437.png)
+![image-20210221132839437](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210221132839437.png)
 
 总结：
 
@@ -375,7 +375,7 @@ org.springframework.boot.autoconfigure.webservices.client.WebServiceTemplateAuto
 
 ### lombok
 
-![image-20210221153255024](./image-20210221153255024.png)
+![image-20210221153255024](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210221153255024.png)
 
 lombok简化开发，编译后生成get,set方法等等
 
@@ -415,11 +415,11 @@ lombok简化开发，编译后生成get,set方法等等
 
   
 
-![image-20210221160112717](./image-20210221160112717.png)
+![image-20210221160112717](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210221160112717.png)
 
-![image-20210221161013391](./image-20210221161013391.png)
+![image-20210221161013391](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210221161013391.png)
 
-![image-20210221161444764](./image-20210221161444764.png)
+![image-20210221161444764](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210221161444764.png)
 
 上图为表示一个复杂对象的写法，yml语法格式
 
@@ -449,7 +449,7 @@ spring:
 
 默认是/**，可以更改为上面代码的路径，因为可能会重名优先去找动态请求
 
-![image-20210221165720026](./image-20210221165720026.png)
+![image-20210221165720026](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210221165720026.png)
 
 ### 欢迎页支持
 
@@ -500,7 +500,7 @@ public WebMvcAutoConfigurationAdapter(WebProperties webProperties, WebMvcPropert
 
 ### Rest映射以及源码解析
 
-![image-20210222145053310](./image-20210222145053310.png)
+![image-20210222145053310](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210222145053310.png)
 
 想要使用Rest风格
 
@@ -508,9 +508,9 @@ public WebMvcAutoConfigurationAdapter(WebProperties webProperties, WebMvcPropert
 
 但是由于form表单只支持get,post操作
 
-![image-20210222145223984](./image-20210222145223984.png)
+![image-20210222145223984](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210222145223984.png)
 
-![image-20210222145431677](./image-20210222145431677.png)
+![image-20210222145431677](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210222145431677.png)
 
 约定大于配置，HiddenHttpMethodFilter来解决表单不能提交put和delete的请求
 
@@ -568,7 +568,7 @@ Rest使用客户端工具不需要使用过滤器，原因是表单提交只有g
 
 SpringMvc所有的功能分析都在于doDispatch方法里面
 
-![image-20210222153222840](./image-20210222153222840.png)
+![image-20210222153222840](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210222153222840.png)
 
 ```java
 mappedHandler = getHandler(processedRequest); 该方法用于找出哪个方法可以处理前端发来的请求
@@ -590,7 +590,7 @@ mappedHandler = getHandler(processedRequest); 该方法用于找出哪个方法�
 	}
 ```
 
-![image-20210222154510468](./image-20210222154510468.png)
+![image-20210222154510468](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210222154510468.png)
 
 所有的HandlerMapping
 
@@ -598,17 +598,17 @@ mappedHandler = getHandler(processedRequest); 该方法用于找出哪个方法�
 
 RequestMappingHandlerMapping：保存了@RequestMapping注解和Handler的映射规则
 
-![image-20210222154908803](./image-20210222154908803.png)
+![image-20210222154908803](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210222154908803.png)
 
 在映射注册中心保存了所有的映射，比如/bug.jpg 是由哪个类的哪个方法
 
 ### 常用参数注解使用
 
-![image-20210222202759905](./image-20210222202759905.png)
+![image-20210222202759905](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210222202759905.png)
 
 #### PathVariable
 
-![image-20210222162259015](./image-20210222162259015.png)
+![image-20210222162259015](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210222162259015.png)
 
 **PathVariable**可以读取路径上的变量，比如前端发 /car/1/owner/fengjiahao/
 
@@ -618,9 +618,9 @@ RequestMappingHandlerMapping：保存了@RequestMapping注解和Handler的映射
 
 **RequestHeader**获取请求头的一个参数
 
-![image-20210222162816214](./image-20210222162816214.png)
+![image-20210222162816214](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210222162816214.png)
 
-获取所有请求头参数![image-20210222162907710](./image-20210222162907710.png)
+获取所有请求头参数![image-20210222162907710](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210222162907710.png)
 
 #### RequestParam
 
@@ -628,9 +628,9 @@ RequestMappingHandlerMapping：保存了@RequestMapping注解和Handler的映射
 
 @RequestParam获取请求参数
 
-![image-20210222163033683](./image-20210222163033683.png)
+![image-20210222163033683](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210222163033683.png)
 
-![image-20210222163109239](./image-20210222163109239.png)
+![image-20210222163109239](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210222163109239.png)
 
 获取单个直接写参数，获取多个比如篮球和游戏，直接写集合
 
@@ -638,9 +638,9 @@ RequestMappingHandlerMapping：保存了@RequestMapping注解和Handler的映射
 
 @CookieValue 获取cookie的值
 
-![image-20210222163950837](./image-20210222163950837.png)
+![image-20210222163950837](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210222163950837.png)
 
-![image-20210222164110915](./image-20210222164110915.png)
+![image-20210222164110915](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210222164110915.png)
 
 可以拿整个cookie对象
 
@@ -648,17 +648,17 @@ RequestMappingHandlerMapping：保存了@RequestMapping注解和Handler的映射
 
 获取到整个表单的数据
 
-![image-20210222164550102](./image-20210222164550102.png)
+![image-20210222164550102](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210222164550102.png)
 
-![image-20210222164557309](./image-20210222164557309.png)
+![image-20210222164557309](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210222164557309.png)
 
-![image-20210222164603769](./image-20210222164603769.png)
+![image-20210222164603769](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210222164603769.png)
 
 相当于就是将表单的数据映射到参数上
 
 #### RequestAttribute
 
-![image-20210222165051566](./image-20210222165051566.png)
+![image-20210222165051566](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210222165051566.png)
 
 获取请求域中的属性，由于是转发，属于同一个请求，所以可以直接使用该注解取出请求中的属性
 
@@ -666,7 +666,7 @@ RequestMappingHandlerMapping：保存了@RequestMapping注解和Handler的映射
 
 #### MatrixVariable 矩阵变量
 
-![image-20210222171950764](./image-20210222171950764.png)
+![image-20210222171950764](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210222171950764.png)
 
 矩阵变量，以:结尾。上图比如 boss下的1并且年龄等于20的，和2年龄等于20的
 
@@ -678,15 +678,15 @@ SpringBoot默认关闭矩阵变量功能
 
 默认UrlPathHelper的参数RemoveSemicolonContent为true，也就是移除
 
-![image-20210222173322032](./image-20210222173322032.png)
+![image-20210222173322032](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210222173322032.png)
 
-![image-20210222173916249](./image-20210222173916249.png)
+![image-20210222173916249](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210222173916249.png)
 
-![image-20210222173946180](./image-20210222173946180.png)
+![image-20210222173946180](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210222173946180.png)
 
 想要访问到不能直接写sell，必须使用{path}方式
 
-![image-20210222174339143](./image-20210222174339143.png)
+![image-20210222174339143](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210222174339143.png)
 
 当同时需要获取名的矩阵变量参数，需要指定pathVar，指定是哪个路径下的变量
 
@@ -699,7 +699,7 @@ HandlerAdapter ha = getHandlerAdapter(mappedHandler.getHandler());
 
 **相当于是对于上面找到处理请求的方法进行参数封装和反射调用**
 
-![image-20210222175750513](./image-20210222175750513.png)
+![image-20210222175750513](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210222175750513.png)
 
 如何找适合的adapter?也是遍历所有的handlerAdapter，去寻找适合的
 
@@ -735,7 +735,7 @@ mv = ha.handle(processedRequest, response, mappedHandler.getHandler()); //执行
 mav = invokeHandlerMethod(request, response, handlerMethod); //真正执行可以处理请求的方法
 ```
 
-![image-20210222181815151](./image-20210222181815151.png)
+![image-20210222181815151](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210222181815151.png)
 
 ```
 ServletInvocableHandlerMethod invocableMethod = createInvocableHandlerMethod(handlerMethod);
@@ -750,13 +750,13 @@ if (this.argumentResolvers != null) {
 
 里面的设计
 
-![image-20210222182043476](./image-20210222182043476.png)
+![image-20210222182043476](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210222182043476.png)
 
 首先调用supports将参数传入，判断是否支持，如果支持则解析
 
 还有**返回值处理器**
 
-![image-20210222182141289](./image-20210222182141289.png)
+![image-20210222182141289](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210222182141289.png)
 
 15种可以返回的类型，比如ResponBody的，modelAndView类型的等等
 
@@ -820,7 +820,7 @@ public Object resolveArgument(MethodParameter parameter, @Nullable ModelAndViewC
 
 ### Servlet API参数解析原理
 
-![image-20210222202832639](./image-20210222202832639.png)
+![image-20210222202832639](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210222202832639.png)
 
 ```java
 ==== ServletRequestMethodArgumentResolver====
@@ -846,7 +846,7 @@ public boolean supportsParameter(MethodParameter parameter) {
 
 ### 复杂参数原理解析
 
-![image-20210222203844602](./image-20210222203844602.png)
+![image-20210222203844602](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210222203844602.png)
 
 比如map,Model(默认里面的数据会被放在request的请求域 request.setAttribute)
 
@@ -862,7 +862,7 @@ private final ModelMap defaultModel = new BindingAwareModelMap();
 
 都是调用了mavContainer.getModel();返回了**BindingAwareModelMap**进行数据绑定
 
-![image-20210222210404666](./image-20210222210404666.png)
+![image-20210222210404666](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210222210404666.png)
 
 Map和Model参数都是向该红色处放入值
 
@@ -870,7 +870,7 @@ Map和Model参数都是向该红色处放入值
 processDispatchResult(processedRequest, response, mappedHandler, mv, dispatchException); //处理派发结果 想打关于就是执行完目标方法后需要干的事情，比如说跳转页面或者将数据放入到请求域中等或者进行转发跳转等等
 ```
 
-![image-20210222211317050](./image-20210222211317050.png)
+![image-20210222211317050](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210222211317050.png)
 
 ```
 render(mv, request, response); //相当于就是执行后续视图解析 参数封装等
@@ -907,9 +907,9 @@ ServletModelAttributeMethodProcessor
 
 该类来解析POJO对象的封装，比如直接将表达封装为Person对象，并且Person对象里面还有级联属性
 
-![image-20210222213551303](./image-20210222213551303.png)
+![image-20210222213551303](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210222213551303.png)
 
-![image-20210222215741428](./image-20210222215741428.png)
+![image-20210222215741428](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210222215741428.png)
 
 Http参数万物皆为文本，但是要封装各种类型的参数，所以必须要将参数转换String-》Number等等
 
@@ -921,9 +921,9 @@ WebDataBinder binder = binderFactory.createBinder(webRequest, attribute, name);
 
 GenericConversionService类实现了所有的数据转换功能
 
-![image-20210223114731866](./image-20210223114731866.png)
+![image-20210223114731866](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210223114731866.png)
 
-![image-20210223115256097](./image-20210223115256097.png)
+![image-20210223115256097](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210223115256097.png)
 
 可以定制化MVC功能，比如重写URL路径，和自定义converts，转换器
 
@@ -931,7 +931,7 @@ GenericConversionService类实现了所有的数据转换功能
 
 ### ReturnValueHandle原理
 
-![image-20210223120936363](./image-20210223120936363.png)
+![image-20210223120936363](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210223120936363.png)
 
 也是使用的返回值解析器
 
@@ -955,7 +955,7 @@ GenericConversionService类实现了所有的数据转换功能
 			}
 ```
 
-![image-20210223121859244](./image-20210223121859244.png)
+![image-20210223121859244](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210223121859244.png)
 
 处理返回值的一个顶级接口，只有两个方法，逻辑也和参数解析器一样，循环遍历是否支持该返回类型，如果支持，则调用HandleReturnValue处理
 
@@ -967,27 +967,27 @@ RequestResponseBodyMethodProcessor 可以处理返回值标了@ResponseBody注�
 - 服务器最终会根据自己的能力，决定服务器能生成出什么样内容类型的数据
 - SpringMvc会循环遍历容器底层所有的**HttpMessageConverter**
 
-![image-20210223143056727](./image-20210223143056727.png)
+![image-20210223143056727](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210223143056727.png)
 
 消息转换其，就是是否支持将此Class类型的对象转换为MediaType
 
 例子 ：Person对象转换为Json
 
-![image-20210223143230988](./image-20210223143230988.png)
+![image-20210223143230988](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210223143230988.png)
 
 不同的MessageConverters可以处理不同的数据
 
-![image-20210223144250217](./image-20210223144250217.png)
+![image-20210223144250217](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210223144250217.png)
 
 MappingJackson2HttpMessageConverter可以将任何数据转为json，条件判断的时候总是返回true
 
-![image-20210223144338226](./image-20210223144338226.png)
+![image-20210223144338226](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210223144338226.png)
 
 ### 内容协商
 
 根据客户端接受能力不同，返回不同媒体数据的类型
 
-![image-20210223151524063](./image-20210223151524063.png)
+![image-20210223151524063](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210223151524063.png)
 
 用户可以根据请求头的accept 可以接受的数据 服务器动态的将数据进行变化返回给浏览器
 
@@ -995,13 +995,13 @@ MappingJackson2HttpMessageConverter可以将任何数据转为json，条件判�
 
 也就是开启浏览器参数方式内容协商
 
-![image-20210223152008213](./image-20210223152008213.png)
+![image-20210223152008213](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210223152008213.png)
 
 在springBoot配置文件中开启内容协商
 
-![image-20210223152110060](./image-20210223152110060.png)
+![image-20210223152110060](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210223152110060.png)
 
-![image-20210223152128304](./image-20210223152128304.png)
+![image-20210223152128304](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210223152128304.png)
 
 在发送请求的时候选择自己的format格式，会优先将数据改变为响应的格式
 
@@ -1009,9 +1009,9 @@ MappingJackson2HttpMessageConverter可以将任何数据转为json，条件判�
 
 那么会新增一个策略
 
-![image-20210223152312483](./image-20210223152312483.png)
+![image-20210223152312483](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210223152312483.png)
 
-也就是参数内容协商策略![image-20210223153549977](./image-20210223153549977.png)
+也就是参数内容协商策略![image-20210223153549977](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210223153549977.png)
 
 需求，三种客服端分别响应不同的内容
 
@@ -1060,7 +1060,7 @@ public interface WebMvcConfigurer {
 
 ## 视图解析与模板引擎
 
-![image-20210223172216279](./image-20210223172216279.png)
+![image-20210223172216279](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210223172216279.png)
 
 视图解析器会按照返回的不同规则得到不同的视图
 
@@ -1070,13 +1070,13 @@ public interface WebMvcConfigurer {
 HandlerInterceptor //拦截器的类
 ```
 
-![image-20210223172606179](./image-20210223172606179.png)
+![image-20210223172606179](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210223172606179.png)
 
 preHandle是在处理请求之前，postHandle是在请求处理之后页面跳转之前，
 
 afterCompletion是在页面渲染完成之后
 
-![image-20210223173138545](./image-20210223173138545.png)
+![image-20210223173138545](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210223173138545.png)
 
 拦截 与MVC打交道首先应该想到的是WebMvcConfigurer
 
@@ -1111,7 +1111,7 @@ void triggerAfterCompletion(HttpServletRequest request, HttpServletResponse resp
 }
 ```
 
-![image-20210223181625854](./image-20210223181625854.png)
+![image-20210223181625854](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210223181625854.png)
 
 1-2-3
 
@@ -1132,7 +1132,7 @@ void triggerAfterCompletion(HttpServletRequest request, HttpServletResponse resp
 
 上图是执行postHandle的地方，倒序遍历
 
-![image-20210223182634632](./image-20210223182634632.png)
+![image-20210223182634632](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210223182634632.png)
 
 前面的步骤有任何异常都会直接触发aftercompletion
 
@@ -1157,23 +1157,23 @@ void triggerAfterCompletion(HttpServletRequest request, HttpServletResponse resp
 }
 ```
 
-![image-20210223183241172](./image-20210223183241172.png)
+![image-20210223183241172](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210223183241172.png)
 
 ## 文件上传
 
-![image-20210223204555952](./image-20210223204555952.png)
+![image-20210223204555952](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210223204555952.png)
 
 文件上传的时候使用RequestPart+MultipartFile来获取form表单提交的照片
 
-![image-20210223210946089](./image-20210223210946089.png)
+![image-20210223210946089](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210223210946089.png)
 
 如果使用多文件上传的话 指定multpairt
 
-![image-20210223213920816](./image-20210223213920816.png)
+![image-20210223213920816](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210223213920816.png)
 
 源码地方进行判断是不是multipart类型
 
-![image-20210223214132806](./image-20210223214132806.png)
+![image-20210223214132806](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210223214132806.png)
 
 ## 错误处理
 
@@ -1192,21 +1192,21 @@ void triggerAfterCompletion(HttpServletRequest request, HttpServletResponse resp
 - @ControllerAdvice+@ExpectionHandle处理异常
 - 实现HandleExpectionResolver异常
 
-![image-20210224145330816](./image-20210224145330816.png)
+![image-20210224145330816](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210224145330816.png)
 
 也可以看到静态资源目录下
 
 ### 源码分析
 
-![image-20210224150456110](./image-20210224150456110.png)
+![image-20210224150456110](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210224150456110.png)
 
 根据BasicErrorController请求去找/error路径的请求
 
 给浏览器响应的白页是写死在代码里面的StaticView
 
-![image-20210224150640357](./image-20210224150640357.png)
+![image-20210224150640357](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210224150640357.png)
 
-![image-20210224153525005](./image-20210224153525005.png)
+![image-20210224153525005](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210224153525005.png)
 
 如果没有任何组件可以处理异常，那么默认会再次发送一次/error请求，然后通过ErroController处理
 
@@ -1214,19 +1214,19 @@ void triggerAfterCompletion(HttpServletRequest request, HttpServletResponse resp
 
 ### 几种异常处理原理
 
-![image-20210224154245671](./image-20210224154245671.png)
+![image-20210224154245671](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210224154245671.png)
 
 使用ControllerAdvice注解+ExceptionHandler注解来处理想要处理的异常和想要去的页面
 
-![image-20210224154920894](./image-20210224154920894.png)
+![image-20210224154920894](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210224154920894.png)
 
 使用ResponseStatus注解+自定义异常处理
 
-![image-20210224155024128](./image-20210224155024128.png)
+![image-20210224155024128](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210224155024128.png)
 
 会自动解析	
 
-![image-20210224155322242](./image-20210224155322242.png)
+![image-20210224155322242](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210224155322242.png)
 
 还有自定义一个处理器异常解析器，重写里面的resolveException方法，返回模型和视图
 
@@ -1236,27 +1236,27 @@ Order时指向优先级，数字越小优先级越高
 
 想要使用原生Servlet功能主要在启动配置类上标注注解
 
-![image-20210224155835273](./image-20210224155835273.png)
+![image-20210224155835273](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210224155835273.png)
 
-![image-20210224155938179](./image-20210224155938179.png)
+![image-20210224155938179](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210224155938179.png)
 
 还需要WebServlet注解 相当于就成功声明了一个Servlet
 
 效果：直接响应，没有被Spring的拦截器拦截
 
-![image-20210224160119129](./image-20210224160119129.png)
+![image-20210224160119129](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210224160119129.png)
 
 单*是Serlvet的写法，双 * 是spring的写法
 
-![image-20210224160335574](./image-20210224160335574.png)
+![image-20210224160335574](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210224160335574.png)
 
-![image-20210224161146968](./image-20210224161146968.png)
+![image-20210224161146968](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210224161146968.png)
 
 注入原生组件的第二种方法
 
 使用配置类+RegistrationBean系列来加入原生组件
 
-![image-20210224162514014](./image-20210224162514014.png)
+![image-20210224162514014](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210224162514014.png)
 
 根据优先匹配原则来匹配
 
@@ -1264,7 +1264,7 @@ Order时指向优先级，数字越小优先级越高
 
 ## 嵌入式Servlet容器
 
-![image-20210224165235237](./image-20210224165235237.png)
+![image-20210224165235237](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210224165235237.png)
 
 启动的时候寻找ServletWebServerFactory
 
@@ -1272,23 +1272,23 @@ Order时指向优先级，数字越小优先级越高
 
 场景starter-xxxAutoConfiguration-导入xxx组件-绑定xxxProperties--绑定配置文件项
 
-![image-20210224171307623](./image-20210224171307623.png)
+![image-20210224171307623](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210224171307623.png)
 
-![image-20210224173412547](./image-20210224173412547.png)
+![image-20210224173412547](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210224173412547.png)
 
-![image-20210224201029825](./image-20210224201029825.png)
+![image-20210224201029825](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210224201029825.png)
 
 ## 数据访问
 
 ### 数据库场景的自动配置
 
-![image-20210224212913814](./image-20210224212913814.png)
+![image-20210224212913814](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210224212913814.png)
 
-![image-20210224212922806](./image-20210224212922806.png)
+![image-20210224212922806](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210224212922806.png)
 
-![image-20210224213850632](./image-20210224213850632.png)
+![image-20210224213850632](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210224213850632.png)
 
-![image-20210224214652621](./image-20210224214652621.png)
+![image-20210224214652621](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210224214652621.png)
 
 ### 数据源Druid配置
 
@@ -1482,7 +1482,7 @@ public interface DeptMapper {
 
 还有注解版Mybatis,不需要写mapper.xm文件，而是直接在方法上标注@Select,@Insert等注解，不推荐使用
 
-![image-20210225175825046](./image-20210225175825046.png)
+![image-20210225175825046](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210225175825046.png)
 
 @Options注解用于Insert的配置，主键回填，将新增的id赋值给插入进来的city属性
 
@@ -1524,11 +1524,11 @@ public interface DeptMapper {
 
 #### DisplayName
 
-![image-20210226165225612](./image-20210226165225612.png)
+![image-20210226165225612](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210226165225612.png)
 
 
 
-![image-20210226165229140](./image-20210226165229140.png)
+![image-20210226165229140](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210226165229140.png)
 
 向方法或者类添加名称
 
@@ -1536,7 +1536,7 @@ public interface DeptMapper {
 
 @BeforeEach，在每个测试方法运行之前运行
 
-![image-20210226165352210](./image-20210226165352210.png)
+![image-20210226165352210](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210226165352210.png)
 
 #### AfterEach
 
@@ -1566,17 +1566,17 @@ public interface DeptMapper {
 
 
 
-![image-20210226171114464](./image-20210226171114464.png)
+![image-20210226171114464](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210226171114464.png)
 
 用于判断
 
-![image-20210226171126641](./image-20210226171126641.png)在Assertions包下
+![image-20210226171126641](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210226171126641.png)在Assertions包下
 
-![image-20210226172041730](./image-20210226172041730.png)
+![image-20210226172041730](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210226172041730.png)
 
 测试前置条件
 
-![image-20210226172729131](./image-20210226172729131.png)
+![image-20210226172729131](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210226172729131.png)
 
 嵌套断言
 
@@ -1586,7 +1586,7 @@ public interface DeptMapper {
 
 ### 参数化测试
 
-![image-20210226174034760](./image-20210226174034760.png)
+![image-20210226174034760](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210226174034760.png)
 
 参数化测试所需要
 
@@ -1594,15 +1594,15 @@ public interface DeptMapper {
 
 ## 指标监控
 
-![image-20210226174524864](./image-20210226174524864.png)
+![image-20210226174524864](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210226174524864.png)
 
-![image-20210226180537796](./image-20210226180537796.png)
+![image-20210226180537796](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210226180537796.png)
 
 在actuator后面跟的路径称为端点，默认Web情况下只开启headlth和info,如果想要全部开启需要在配置文件中managerment开启
 
-![image-20210226180915668](./image-20210226180915668.png)
+![image-20210226180915668](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210226180915668.png)
 
-![image-20210226180939174](./image-20210226180939174.png) 
+![image-20210226180939174](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210226180939174.png) 
 
 ### Actuator Endpoint
 
@@ -1612,31 +1612,31 @@ caches
 
 conditions
 
-![image-20210226181513348](./image-20210226181513348.png)
+![image-20210226181513348](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210226181513348.png)
 
-![image-20210226181530514](./image-20210226181530514.png)
+![image-20210226181530514](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210226181530514.png)
 
 - health 健康状况
 - Metrics 运行时指标
 - Loggers 日志记录
 
-![image-20210226203539061](./image-20210226203539061.png)
+![image-20210226203539061](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210226203539061.png)
 
 定制断电Endpoint
 
-![image-20210226205009193](./image-20210226205009193.png)
+![image-20210226205009193](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210226205009193.png)
 
 需要继承AbstractHealthIndicator
 
-![image-20210226210922177](./image-20210226210922177.png)
+![image-20210226210922177](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210226210922177.png)
 
 自定义info信息，可以自己编写yaml文件
 
-![image-20210226212945685](./image-20210226212945685.png)
+![image-20210226212945685](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210226212945685.png)
 
 自定义metirex指标信息
 
-![image-20210226213350137](./image-20210226213350137.png)
+![image-20210226213350137](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210226213350137.png)
 
 自定义端点
 
@@ -1646,23 +1646,23 @@ conditions
 
 用于生产，测试等环境的切换
 
-![image-20210228164752658](./image-20210228164752658.png)
+![image-20210228164752658](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210228164752658.png)
 
-![image-20210228164757643](./image-20210228164757643.png)
+![image-20210228164757643](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210228164757643.png)
 
 需要使用哪个配置文件就指定那个，式必须为application-xxx-yaml
 
-![image-20210228164946694](./image-20210228164946694.png)
+![image-20210228164946694](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210228164946694.png)
 
-![image-20210228165110792](./image-20210228165110792.png)
+![image-20210228165110792](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210228165110792.png)
 
 也可以使用这种配置环境
 
-![image-20210228171026537](./image-20210228171026537.png)
+![image-20210228171026537](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210228171026537.png)
 
 不同的环境使用不同的实例
 
-![image-20210228171126515](./image-20210228171126515.png)
+![image-20210228171126515](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210228171126515.png)
 
 可以不同的环境
 
@@ -1670,9 +1670,9 @@ conditions
 
 ### 外部化配置
 
-![image-20210228172846273](./image-20210228172846273.png)
+![image-20210228172846273](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210228172846273.png)
 
-![image-20210228173146795](./image-20210228173146795.png)
+![image-20210228173146795](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210228173146795.png)
 
 ### SpringBoot创建初始化流程
 

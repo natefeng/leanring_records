@@ -42,7 +42,7 @@ usermod -g 组名 用户名
 
 usermod -d 目录名 用户名 设置用户登录的初始目录
 
-![image-20200730224940283](./image-20200730224940283.png)
+![image-20200730224940283](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200730224940283.png)
 
 ## 10.7 权限的基本介绍
 
@@ -74,7 +74,7 @@ abc 代表该文件的名字
 
 
 
-![image-20200730225416461](./image-20200730225416461.png)
+![image-20200730225416461](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200730225416461.png)
 
 ## 10.8 权限详解
 
@@ -126,7 +126,7 @@ chown newowner:newgruop file 该表文件的所有者和所有组
 
 chgrp newgroup file 
 
-![image-20200730230800912](./image-20200730230800912.png)
+![image-20200730230800912](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200730230800912.png)
 
 # 第十一章 实操篇 任务调度
 
@@ -134,7 +134,7 @@ chgrp newgroup file
 
  任务调度分类: 1.系统工作: 有些重要的工作必须周而复始的进行,如按时扫描病毒
 
-![image-20200731125717985](./image-20200731125717985.png)
+![image-20200731125717985](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200731125717985.png)
 
 crontab [选项]  crontab -e 编辑定时任务
 
@@ -146,15 +146,15 @@ crontab [选项]  crontab -l 查询当前用户的crontab任务
 
 在里面编写 或者编写shell脚本代码
 
-![image-20200731170630694](./image-20200731170630694.png)
+![image-20200731170630694](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200731170630694.png)
 
   每分钟把ls -l /ect 下的内容 覆盖到tmp/to.txt 文本下
 
-![image-20200731190340109](./image-20200731190340109.png)
+![image-20200731190340109](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200731190340109.png)
 
-![image-20200731190346493](./image-20200731190346493.png)
+![image-20200731190346493](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200731190346493.png)
 
-![image-20200731190358824](./image-20200731190358824.png) 
+![image-20200731190358824](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200731190358824.png) 
 
 
 
@@ -202,7 +202,7 @@ crontab [选项]  crontab -l 查询当前用户的crontab任务
 
 ### 12.1.2 windows下的磁盘分区
 
-![image-20200731215545957](./image-20200731215545957.png)
+![image-20200731215545957](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200731215545957.png)
 
 ## 12.2 Linux分区
 
@@ -212,13 +212,13 @@ crontab [选项]  crontab -l 查询当前用户的crontab任务
 
 2) Linux采用了一种载入的处理方法,它的整个文件系统中包含了一整套的文件和目录,且将一个分区和一个目录联系起来,这时要载入的一个分区将使它的存储空间在一个目录下获得
 
-![image-20200731220527354](./image-20200731220527354.png)
+![image-20200731220527354](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200731220527354.png)
 
 
 
 ### 12.2.2 使用lsblk 指令查看当前系统的分区情况
 
-![image-20200731220834210](./image-20200731220834210.png)
+![image-20200731220834210](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200731220834210.png)
 
 挂载一块2G的硬盘到/home/newdisk目录下
 
@@ -250,7 +250,7 @@ yyp 复制一行
 
 取消联系代码
 
-![image-20200731221526728](./image-20200731221526728.png)
+![image-20200731221526728](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200731221526728.png)
 
 # 13 磁盘实用指令
 
@@ -260,7 +260,7 @@ df -lh human 人类 和df -l
 
 查询系统整体磁盘使用情况
 
-![image-20200801221247205](./image-20200801221247205.png)
+![image-20200801221247205](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200801221247205.png)
 
 基本语法 
 
@@ -282,7 +282,7 @@ df -lh human 人类 和df -l
 
  查询/opt目录下的占用情况,深度为1(也就是只查一层)
 
-![](./image-20200801221812286.png)
+![](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200801221812286.png)
 
 ## 13.2 磁盘情况-工作实用指令
 
@@ -302,7 +302,7 @@ ls -lR /home | grep "^-" | wc -l
 
 yum install tree  安装tree命令
 
-![image-20200801222356630](./image-20200801222356630.png)
+![image-20200801222356630](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200801222356630.png)
 
 
 
@@ -310,21 +310,21 @@ yum install tree  安装tree命令
 
 目前我们的网路配置采用的是Nat
 
-![image-20200801222642414](./image-20200801222642414.png)
+![image-20200801222642414](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200801222642414.png)
 
  ## 14.2 查看网络IP和网关
 
-![image-20200801222733989](./image-20200801222733989.png)
+![image-20200801222733989](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200801222733989.png)
 
-![image-20200801222746181](./image-20200801222746181.png)
+![image-20200801222746181](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200801222746181.png)
 
-![image-20200801222756487](./image-20200801222756487.png)
+![image-20200801222756487](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200801222756487.png)
 
 ## 14.3 Linux 网络环境配置的两种方式
 
 ### 14.3.1 自动获取
 
-![image-20200801222849799](./image-20200801222849799.png)
+![image-20200801222849799](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200801222849799.png)
 
 缺点: linux 启动后会自动获取IP,缺点是每次自动获取的ip地址可能不一样。这个不适用于做服务器,因为我们的服务器的 ip 需要时固定的.
 
@@ -336,9 +336,9 @@ yum install tree  安装tree命令
 
 vim /ect/sysconfig/network-scripts/ifcfg-eth0
 
-![image-20200801223330296](./image-20200801223330296.png)
+![image-20200801223330296](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200801223330296.png)
 
-![image-20200801223344932](./image-20200801223344932.png)
+![image-20200801223344932](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200801223344932.png)
 
 将配置文件改成本地和网卡一致的IP段
 
@@ -371,9 +371,9 @@ Bios自检
 
  查看进程使用的指令是 ps ,一般来说使用的参数 是 ps -aux
 
-![image-20200801224815488](D:\学习笔记\image-20200801224815488.png)
+![image-20200801224815488](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200801224815488.png)
 
-![image-20200801224824303](D:\学习笔记\image-20200801224824303.png)
+![image-20200801224824303](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200801224824303.png)
 
 IPD进程ID号 USER 用户名 VSZ 虚拟内存 TTY使用的终端
 
@@ -395,15 +395,15 @@ COMMADN：启动进程所用的命令和参数
 
 ps -ef | more 
 
-![image-20200801225416784](D:\学习笔记\image-20200801225416784.png)
+![image-20200801225416784](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200801225416784.png)
 
-![image-20200801225433803](D:\学习笔记\image-20200801225433803.png)
+![image-20200801225433803](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200801225433803.png)
 
 思考题 , 如果我们希望查看 sshd 进程的父进程号是多少，应该怎样查询？
 
 ps -ef | grep sshd
 
-![image-20200801225651653](D:\学习笔记\image-20200801225651653.png)
+![image-20200801225651653](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200801225651653.png)
 
 ## 15.3 终止进程 kill 和 killall
 
@@ -427,9 +427,9 @@ killall 进程名称 （功能描述：通过进程名称杀死进程,也支持�
 
 ps -aux | grep sshd
 
-![image-20200801230131291](D:\学习笔记\image-20200801230131291.png)
+![image-20200801230131291](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200801230131291.png)
 
-![image-20200801230147105](D:\学习笔记\image-20200801230147105.png)
+![image-20200801230147105](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200801230147105.png)
 
 案例三 ：终止多个getit编辑器
 
@@ -453,7 +453,7 @@ pstree[选项]，可以更加直观的来看进程信息
 
 -u ：显示进程的所属用户
 
-![image-20200801230832761](D:\学习笔记\image-20200801230832761.png)
+![image-20200801230832761](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200801230832761.png)
 
 ## 15.5 服务(Service)管理
 
@@ -461,7 +461,7 @@ pstree[选项]，可以更加直观的来看进程信息
 
 服务(service)本质就是进程,但是是运行在后台的，通常都会监听某个端口,等待其他程序的请求,比如(mysql,sshd 防火墙等),因此我们又称为守护进程.是Linux非常重要的知识点【原理图】
 
-![image-20200801231027316](D:\学习笔记\image-20200801231027316.png)
+![image-20200801231027316](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200801231027316.png)
 
 ### 15.5.2 service 管理指令
 
@@ -477,7 +477,7 @@ service iptables stop
 
 service iptables restart
 
-![image-20200801231320658](D:\学习笔记\image-20200801231320658.png)
+![image-20200801231320658](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200801231320658.png)
 
 ### 15.5.4 细节讨论
 
@@ -493,21 +493,21 @@ telnet ip 端口号
 
 方式1：setup--> 系统服务 
 
-![image-20200801231527398](D:\学习笔记\image-20200801231527398.png)
+![image-20200801231527398](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200801231527398.png)
 
 方式2：/etc/init.d/服务名称
 
-![image-20200801231612454](D:\学习笔记\image-20200801231612454.png)
+![image-20200801231612454](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200801231612454.png)
 
 
 
-![image-20200801231618143](D:\学习笔记\image-20200801231618143.png)
+![image-20200801231618143](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200801231618143.png)
 
 开机的流程说明
 
 首先开机 然后BIOS自检 /boot引导  开启init进程然后依据inittab文件来读取运行等级  内核被加载后,第一个运行的程序时/sbin/inint 该文件会读取/ect/inittab文件 并且读取到运行Linux对应的运行级别
 
-![image-20200801231937603](D:\学习笔记\image-20200801231937603.png)
+![image-20200801231937603](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200801231937603.png)
 
 ### 15.5.6 chkconfig指令
 
@@ -521,19 +521,19 @@ telnet ip 端口号
 
   chkconfig --list
 
-![image-20200801232136945](D:\学习笔记\image-20200801232136945.png)
+![image-20200801232136945](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200801232136945.png)
 
 chkconfig --list | grep sshd
 
-![image-20200801232203323](D:\学习笔记\image-20200801232203323.png)
+![image-20200801232203323](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200801232203323.png)
 
-![image-20200801232207895](D:\学习笔记\image-20200801232207895.png)
+![image-20200801232207895](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200801232207895.png)
 
 3）给某个服务的某个运行级别设置对应的自启动/关闭
 
 chkconfig --level 5 服务名 on/off
 
-![image-20200801232326947](D:\学习笔记\image-20200801232326947.png)
+![image-20200801232326947](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200801232326947.png)
 
 案例一 查看当前服务的各个运行级别的运行状态
 
@@ -553,7 +553,7 @@ chkconfig --level 5 sshd off
 
 chkconfig --level 5 iptables off
 
-![image-20200801232625401](D:\学习笔记\image-20200801232625401.png)
+![image-20200801232625401](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200801232625401.png)
 
 ## 15.6 动态监控进程
 
@@ -569,11 +569,11 @@ top[选项]
 
 -i 使top不显示任何闲置或者僵尸进程
 
-![image-20200801233031344](D:\学习笔记\image-20200801233031344.png)
+![image-20200801233031344](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200801233031344.png)
 
 -p 通过指定监控进程ID来查询某个进程的状态
 
-![image-20200801233054978](D:\学习笔记\image-20200801233054978.png)
+![image-20200801233054978](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200801233054978.png)
 
 ### 15.6.2 应用案例
 
@@ -581,11 +581,11 @@ top[选项]
 
 top
 
-![image-20200801233131911](D:\学习笔记\image-20200801233131911.png)
+![image-20200801233131911](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200801233131911.png)
 
-![image-20200801233142085](D:\学习笔记\image-20200801233142085.png)
+![image-20200801233142085](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200801233142085.png)
 
-![image-20200801233151296](D:\学习笔记\image-20200801233151296.png)
+![image-20200801233151296](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200801233151296.png)
 
 ### 15.6.3 查看系统网络情况 netstat(重要)
 
@@ -603,7 +603,7 @@ top
 
 netstat -anp
 
-![image-20200801233304391](D:\学习笔记\image-20200801233304391.png)
+![image-20200801233304391](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200801233304391.png)
 
 0.0.0.0 代表正在监听
 
@@ -621,7 +621,7 @@ netstat -anp
 
 查询看一下有没有安装火狐 rpm -qa | grep firefox
 
-![image-20200806123340664](D:\学习笔记\image-20200806123340664.png)
+![image-20200806123340664](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200806123340664.png)
 
 
 
@@ -637,7 +637,7 @@ rpm -q 软件包名 ：查询软件包是否安装
 
 rpm -qi 软件包名：查询软件包信息
 
-![image-20200806123735596](D:\学习笔记\image-20200806123735596.png)
+![image-20200806123735596](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200806123735596.png)
 
 rpm -ql firefox 查询rpm包的文件安装到哪里去了
 
@@ -647,7 +647,7 @@ rpm -ql firefox 查询rpm包的文件安装到哪里去了
 
 rpm -e RPM包的名称
 
-![image-20200806123948896](D:\学习笔记\image-20200806123948896.png)
+![image-20200806123948896](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200806123948896.png)
 
 rpm -e --nodeps foo
 
@@ -661,7 +661,7 @@ rpm -e --nodeps foo
 
 案例演示
 
-![image-20200806124157622](D:\学习笔记\image-20200806124157622.png)
+![image-20200806124157622](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200806124157622.png)
 
 ## 16.2 YUM
 
@@ -669,7 +669,7 @@ rpm -e --nodeps foo
 
 Yum是一个Shell前端软件包管理器。基于RPM包管理，能够从指定的服务器自动下载RPM包并且安装，可以自动处理依赖关系，并且一次安装所有的依赖包。使用yum的提前必须有网络
 
-![image-20200806124347796](D:\学习笔记\image-20200806124347796.png)
+![image-20200806124347796](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200806124347796.png)
 
 ### 16.2.2 yum的基本指令
 
@@ -681,9 +681,9 @@ yum install xxx 下载安装
 
 ### 16.2.3应用案例
 
-![image-20200806124604587](D:\学习笔记\image-20200806124604587.png)
+![image-20200806124604587](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200806124604587.png)
 
-![image-20200806124611938](D:\学习笔记\image-20200806124611938.png)
+![image-20200806124611938](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200806124611938.png)
 
 # JAVAEE定制篇 搭建JAVAEE环境
 
@@ -707,7 +707,7 @@ vim /ect/sysconfig/iptables
 
 ### 17.2 shell是什么
 
-![image-20200806125223838](D:\学习笔记\image-20200806125223838.png)
+![image-20200806125223838](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200806125223838.png)
 
 shell是一个命令解析器，它为用户提供了一个向Linux内核发送请求以便运行程序的界面系统级程序
 
@@ -719,7 +719,7 @@ shell是一个命令解析器，它为用户提供了一个向Linux内核发送�
 
 2)脚本需要有一个可执行的权限
 
-![image-20200806125618819](D:\学习笔记\image-20200806125618819.png)
+![image-20200806125618819](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200806125618819.png)
 
 ## 17.4 shell的变量
 
@@ -729,7 +729,7 @@ shell是一个命令解析器，它为用户提供了一个向Linux内核发送�
 
 2）系统变量：$HOME,$PWD,$SHELL,$USER 等待
 
-![image-20200806125756674](D:\学习笔记\image-20200806125756674.png)
+![image-20200806125756674](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200806125756674.png)
 
 3)显示当前shell中的所有变量 ：set
 
@@ -757,7 +757,7 @@ A=`ls -la` 反引号 运行里面的命令，并且把结果返回给A
 
 A=$(ls -la) 等价于上面的
 
-![image-20200806130152276](D:\学习笔记\image-20200806130152276.png)
+![image-20200806130152276](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200806130152276.png)
 
  ## 17.5 设置环境变量
 
@@ -767,21 +767,21 @@ A=$(ls -la) 等价于上面的
 
 2)   source 配置文件 （功能描述：让修改的配置信息立即生效）
 
-3)   echo $ 变量名 （输入环境变量的值）![image-20200806130404101](D:\学习笔记\image-20200806130404101.png)
+3)   echo $ 变量名 （输入环境变量的值）![image-20200806130404101](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200806130404101.png)
 
 ### 17.5.2 快速入门
 
 在/ect/profile编写TOMCAT_Home
 
-![image-20200806130442253](D:\学习笔记\image-20200806130442253.png)
+![image-20200806130442253](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200806130442253.png)
 
-![image-20200806130455978](D:\学习笔记\image-20200806130455978.png)
+![image-20200806130455978](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200806130455978.png)
 
 ## 17.6 位置参数变量
 
 ### 17.6.1 介绍
 
-当我们执行一个shell脚本时，如果希望获取到命令行的参数信息，就可以使用到位置参数的变量 如何./myshell.sh 100 200 这个就是执行shell的命令行 
+当我们执行一个shell脚本时，如果希望获取到命令行的参数信息，就可以使用到位置参数的变量 如何https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/myshell.sh 100 200 这个就是执行shell的命令行 
 
 ### 17.6.2 基本语法
 
@@ -805,9 +805,9 @@ $!(功能描述：后台运行的最后一个进程号)
 
 $?(功能描述：最后一次执行的命令的返回状态 如果返回为0则代表正确，否则错误)
 
-![image-20200806131133479](D:\学习笔记\image-20200806131133479.png)
+![image-20200806131133479](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200806131133479.png)
 
-./myShell.sh & 的意思是以执行这个shell脚本
+https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/myShell.sh & 的意思是以执行这个shell脚本
 
 ## 17.8 运算符
 
@@ -825,7 +825,7 @@ $?(功能描述：最后一次执行的命令的返回状态 如果返回为0则
 
 3）expr /*,/,% 乘 除 取余
 
-![image-20200806131500899](D:\学习笔记\image-20200806131500899.png)
+![image-20200806131500899](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200806131500899.png)
 
 #!/bin/bash
 
@@ -847,7 +847,7 @@ condition 条件
 
 非空返回true，可使用$?验证（0为true，>1为false）
 
-![image-20200806131822410](D:\学习笔记\image-20200806131822410.png)
+![image-20200806131822410](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200806131822410.png)
 
 ### 17.9.2 常用判断条件
 
@@ -913,7 +913,7 @@ then
 
 fi
 
-![image-20200806132325612](D:\学习笔记\image-20200806132325612.png)
+![image-20200806132325612](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200806132325612.png)
 
 ### 17.10.2 case语句
 
@@ -937,7 +937,7 @@ case $变量名 in
 
 esac
 
-![、](D:\学习笔记\image-20200806132531335.png)
+![、](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200806132531335.png)
 
 ### 17.10.3 for 循环
 
@@ -953,7 +953,7 @@ done
 
 案例1：打印命令行输入的参数【会使用到$*$@】
 
-![image-20200806132900231](D:\学习笔记\image-20200806132900231.png)
+![image-20200806132900231](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200806132900231.png)
 
 以上一句的意思是
 
@@ -971,7 +971,7 @@ do
 
 done
 
-![image-20200806133017684](D:\学习笔记\image-20200806133017684.png)
+![image-20200806133017684](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200806133017684.png)
 
 ### 17.10.4 while循环
 
@@ -985,7 +985,7 @@ do
 
 done
 
-![image-20200806133110707](D:\学习笔记\image-20200806133110707.png) 
+![image-20200806133110707](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200806133110707.png) 
 
 ## 17.11 read读取控制台输入
 
@@ -999,7 +999,7 @@ read(选项)(参数)
 
 ​         -t：指定读取值时等待的时间(秒)，如果没有在指定的时间输入，就不等待
 
-![image-20200806133319455](D:\学习笔记\image-20200806133319455.png)
+![image-20200806133319455](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200806133319455.png)
 
 ## 17.12函数
 
@@ -1033,7 +1033,7 @@ basename /home/aaa/test.txt
 
 basename /home/aaa/test.txt .txt
 
-![image-20200806133936164](D:\学习笔记\image-20200806133936164.png)
+![image-20200806133936164](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200806133936164.png)
 
 ### 17.12.3 自定义函数
 
@@ -1049,4 +1049,4 @@ Action 行动
 
 } 
 
-![image-20200806135640393](D:\学习笔记\image-20200806135640393.png)
+![image-20200806135640393](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20200806135640393.png)

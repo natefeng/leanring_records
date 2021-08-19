@@ -113,9 +113,9 @@ CAP定理告诉我们，一个分布式系统不可能同时满足一致性(C：
 
   网络分区是指不同节点在不同的子网络，由于特殊原因造成这些子网络不连通，但是子网络内部网络又是正常的，从而导致系统被切分了。
 
-<img src="./image-20210507175432951.png" alt="image-20210507175432951" style="zoom:67%;" />
+<img src="https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210507175432951.png?versionId=CAEQHBiBgMCvxJ742hciIDMwMTIyNjQzZWEyMDQxOGNhNjYwYjdhYWYyNWNmYWRj" alt="image-20210507175432951" style="zoom:67%;" />
 
-![image-20210507175531625](./image-20210507175531625.png)
+![image-20210507175531625](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210507175531625.png)
 
 必须首先需要有P，因为放弃P代表了数据都放在一个节点。但是又违背了分布式这一概念，分布式的组件必然要放在不同的节点中，所以系统架构师往往需要把精力花在如何根据业务特点在C(一致性)和A(可用性)之间寻求平衡。
 
@@ -232,9 +232,9 @@ BASE是对CAP中一致性和可用性权衡的结果。是基于CAP定理演化�
 
   ​    协调者接收到所有参与者反馈的ACK消息后，完成事务中断。
 
-![image-20210507195918250](./image-20210507195918250.png)
+![image-20210507195918250](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210507195918250.png)
 
-![image-20210507195925794](./image-20210507195925794.png)
+![image-20210507195925794](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210507195925794.png)
 
 **优缺点：**
 
@@ -355,7 +355,7 @@ BASE是对CAP中一致性和可用性权衡的结果。是基于CAP定理演化�
 
    第三种情况，没有任何节点获得majority投票，比如下图这种情况：
 
-<img src="/Users/fengjiahao/Library/Application Support/typora-user-images/image-20210513141430268.png" alt="image-20210513141430268" style="zoom:50%;" />
+<img src="https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210513141430268.png" alt="image-20210513141430268" style="zoom:50%;" />
 
  总共有四个节点，Node C、Node D同时成为了candidate，进入了term 4，但Node A投了NodeD一票，NodeB投了Node C一票，这就出现了平票 split vote的情况。这个时候大家都在等啊等，直到超时后重新发起选举。如果出现平票的情况，那么就延长了系统不可用的时间（没有leader是不能处理客户端写请求的），因此raft引入了randomized election timeouts(随机选举超时时间)来尽量避免平票情况。同时，leader-based 共识算法中，节点的数目都是奇数个，尽量保证majority的出现。
 
@@ -403,7 +403,7 @@ logs由顺序编号的log entry组成，每个log entry除了command，还具有
 
 在任何系统模型下，都需要满足safety属性，最终一致性则保证了liveness。
 
-<img src="/Users/fengjiahao/Library/Application Support/typora-user-images/image-20210513144217990.png" alt="image-20210513144217990" style="zoom:33%;" />
+<img src="https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210513144217990.png" alt="image-20210513144217990" style="zoom:33%;" />
 
 **Election Safety**：
 
@@ -419,7 +419,7 @@ logs由顺序编号的log entry组成，每个log entry除了command，还具有
 - If two entries in different logs have the same index and term, then they store the same command.
 - If two entries in different logs have the same index and term, then the logs are identical in all preceding entries
 
-![image-20210513144610165](/Users/fengjiahao/Library/Application Support/typora-user-images/image-20210513144610165.png)
+![image-20210513144610165](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210513144610165.png)
 
  **注意**：上图的a-f不是6个follower，而是某个follower可能存在的六个状态
 
@@ -537,7 +537,7 @@ ZNode可以分为持久节点和临时节点两类。持久代表一直保存，
 
 ZAB协议并不像Paxos算法那样，是一种通用的分布式一致性算法，而是专门为ZooKeeper设计的崩溃可恢复的原子消息广播算法。ZooKeeper中主要依赖ZAB协议来实现分布式数据一致性，基于该协议，ZooKeeper实现了集群中各副本之间数据的一执行。ZAB协议的这个主备模型架构保证了同一时刻集群中只能有一个主进程来广播服务器的状态变更。
 
-![image-20210514171624655](/Users/fengjiahao/Library/Application Support/typora-user-images/image-20210514171624655.png)
+![image-20210514171624655](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210514171624655.png)
 
 ### 3.5.1 协议介绍
 
@@ -567,7 +567,7 @@ ZAB协议是如何处理需要被丢弃的事务Proposal，假如Leader提出了
 
 ### 3.5.2 深入ZAB协议
 
-![image-20210515105312226](/Users/fengjiahao/Library/Application Support/typora-user-images/image-20210515105312226.png)
+![image-20210515105312226](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210515105312226.png)
 
 CEPOCH ：Follower进程向准Leader发送自己处理过最后都一个事务Proposal的epoch值
 
@@ -619,7 +619,7 @@ server.X=A.B.C 其中X是一个数字，表示这是第几号Server，它的值�
 
 ### 4.1.1 单机模式
 
-单机模式下，直接./zkServer.sh start
+单机模式下，直接https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/zkServer.sh start
 
 就可以了，不需要配置，只需要指定dataDir就可以直接启动了
 
@@ -629,7 +629,7 @@ server.X=A.B.C 其中X是一个数字，表示这是第几号Server，它的值�
 
 并且在dir目录下创建一个myid的文件，写自己的服务id，用于zk服务器名字的确认
 
-<img src="/Users/fengjiahao/Library/Application Support/typora-user-images/image-20210515142917973.png" alt="image-20210515142917973" style="zoom:50%;" />
+<img src="https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210515142917973.png" alt="image-20210515142917973" style="zoom:50%;" />
 
 再加上这个
 
@@ -665,7 +665,7 @@ delete path [version]
 
 ### 4.3.1 创建会话
 
-![image-20210515145039466](/Users/fengjiahao/Library/Application Support/typora-user-images/image-20210515145039466.png)
+![image-20210515145039466](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210515145039466.png)
 
 coeectString指的是Zookeeper服务器列表，host:port字符串组成，如果是集群，则中间以逗号隔开。也可以直接指定 host:port/zk-book,这样都会基于这个根目录来进行操作。
 
@@ -1047,7 +1047,7 @@ public class TestAuthZK {
   </dependency>
 ```
 
-![image-20210515170645016](/Users/fengjiahao/Library/Application Support/typora-user-images/image-20210515170645016.png)
+![image-20210515170645016](https://sober-feng.oss-cn-shanghai.aliyuncs.com/learning/pictures/image-20210515170645016.png)
 
 支持一次性创建多个节点路径，比如/book/ex/c/a
 
